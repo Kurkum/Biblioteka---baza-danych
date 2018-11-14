@@ -69,6 +69,9 @@ namespace Biblioteka.Controllers
                     }
 
                     ViewBag.Exception = message;
+                    ViewBag.IdGatunek = new SelectList(db.Gatuneks, "IdGatunek", "Nazwa", ksiazka.IdGatunek);
+                    ViewBag.IdWydawnictwo = new SelectList(db.Wydawnictwoes, "IdWydawnictwo", "Nazwa", ksiazka.IdWydawnictwo);
+                    return View(ksiazka);
                 }
                 return RedirectToAction("Index");
             }
@@ -104,8 +107,24 @@ namespace Biblioteka.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ksiazka).State = EntityState.Modified;
-                db.SaveChanges();
+                try {
+                    db.SaveChanges();
+                }
+                catch (Exception e) {
+                    string message = "";
+
+                    if (e.InnerException == null) {
+                        message = "Podano nieprawidłowe dane książki!";
+                    }
+                    else {
+                        message = e.InnerException.InnerException.Message;
+                    }
+
+                    ViewBag.Exception = message;
+                    ViewBag.IdGatunek = new SelectList(db.Gatuneks, "IdGatunek", "Nazwa", ksiazka.IdGatunek);
+                    ViewBag.IdWydawnictwo = new SelectList(db.Wydawnictwoes, "IdWydawnictwo", "Nazwa", ksiazka.IdWydawnictwo);
+                    return View(ksiazka);
+                }
                 return RedirectToAction("Index");
             }
             ViewBag.IdGatunek = new SelectList(db.Gatuneks, "IdGatunek", "Nazwa", ksiazka.IdGatunek);

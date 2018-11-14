@@ -4,13 +4,16 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Edytuj dane książki</h2>
 
+@if (ViewBag.Exception != null) {
+    <h3 style="color:red">Wystąpił błąd!</h3>
+    <h4 style="color:red">@ViewBag.Exception</h4>
+}
 
-@using (Html.BeginForm())
-{
+@using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Ksiazka</h4>
         <hr />
