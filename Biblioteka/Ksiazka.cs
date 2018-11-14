@@ -11,7 +11,8 @@ namespace Biblioteka
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Ksiazka
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,10 +22,17 @@ namespace Biblioteka
             this.Autors = new HashSet<Autor>();
         }
     
+        [Required(ErrorMessage = "Pole IdKsiazka nie mo¿e byæ puste!")]
         public int IdKsiazka { get; set; }
+
         public Nullable<int> IdWydawnictwo { get; set; }
         public Nullable<int> IdGatunek { get; set; }
+
+        [Required(ErrorMessage = "Pole Tytul nie mo¿e byæ puste!")]
+        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Tytu³ wynosi 3.")]
         public string Tytul { get; set; }
+
+        [Required(ErrorMessage = "Pole RokWydania nie mo¿e byæ puste!")]
         public int RokWydania { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
