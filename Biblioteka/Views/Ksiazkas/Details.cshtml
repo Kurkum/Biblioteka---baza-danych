@@ -1,0 +1,50 @@
+﻿@model Biblioteka.Ksiazka
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ksiazka</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tytul)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tytul)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RokWydania)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RokWydania)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gatunek.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gatunek.Nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Wydawnictwo.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Wydawnictwo.Nazwa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdKsiazka }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

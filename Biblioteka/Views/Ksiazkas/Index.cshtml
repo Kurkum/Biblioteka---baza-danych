@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Biblioteka.Ksiazka>
+
+@{
+    ViewBag.Title = "Książki";
+}
+
+<h2>Książki</h2>
+
+<p>
+    @Html.ActionLink("Dodaj nową książkę (LINQ)", "Create")
+</p>
+<p>
+    @Html.ActionLink("Dodaj nową książkę (procedura)", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Tytuł
+            @*Html.DisplayNameFor(model => model.Tytul)*@
+        </th>
+        <th>
+            Rok wydania
+            @*@Html.DisplayNameFor(model => model.RokWydania)*@
+        </th>
+        <th>
+            Gatunek
+            @*@Html.DisplayNameFor(model => model.Gatunek.Nazwa)*@
+        </th>
+        <th>
+            Wydawnictwo
+            @*@Html.DisplayNameFor(model => model.Wydawnictwo.Nazwa)*@
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tytul)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RokWydania)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gatunek.Nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wydawnictwo.Nazwa)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.IdKsiazka }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.IdKsiazka }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.IdKsiazka })
+        </td>
+    </tr>
+}
+
+</table>

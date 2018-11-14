@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -158,7 +159,12 @@
     <Compile Include="Autor.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AutorsController.cs" />
+    <Compile Include="Controllers\EgzemplarzsController.cs" />
+    <Compile Include="Controllers\GatuneksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KsiazkasController.cs" />
+    <Compile Include="Controllers\WydawnictwoesController.cs" />
     <Compile Include="Czytelnik.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
@@ -253,6 +259,31 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Ksiazkas\Create.cshtml" />
+    <Content Include="Views\Ksiazkas\Delete.cshtml" />
+    <Content Include="Views\Ksiazkas\Details.cshtml" />
+    <Content Include="Views\Ksiazkas\Edit.cshtml" />
+    <Content Include="Views\Ksiazkas\Index.cshtml" />
+    <Content Include="Views\Autors\Create.cshtml" />
+    <Content Include="Views\Autors\Delete.cshtml" />
+    <Content Include="Views\Autors\Details.cshtml" />
+    <Content Include="Views\Autors\Edit.cshtml" />
+    <Content Include="Views\Autors\Index.cshtml" />
+    <Content Include="Views\Gatuneks\Create.cshtml" />
+    <Content Include="Views\Gatuneks\Delete.cshtml" />
+    <Content Include="Views\Gatuneks\Details.cshtml" />
+    <Content Include="Views\Gatuneks\Edit.cshtml" />
+    <Content Include="Views\Gatuneks\Index.cshtml" />
+    <Content Include="Views\Wydawnictwoes\Create.cshtml" />
+    <Content Include="Views\Wydawnictwoes\Delete.cshtml" />
+    <Content Include="Views\Wydawnictwoes\Details.cshtml" />
+    <Content Include="Views\Wydawnictwoes\Edit.cshtml" />
+    <Content Include="Views\Wydawnictwoes\Index.cshtml" />
+    <Content Include="Views\Egzemplarzs\Create.cshtml" />
+    <Content Include="Views\Egzemplarzs\Delete.cshtml" />
+    <Content Include="Views\Egzemplarzs\Details.cshtml" />
+    <Content Include="Views\Egzemplarzs\Edit.cshtml" />
+    <Content Include="Views\Egzemplarzs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
