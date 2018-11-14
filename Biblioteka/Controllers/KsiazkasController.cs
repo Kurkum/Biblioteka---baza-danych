@@ -54,7 +54,22 @@ namespace Biblioteka.Controllers
             if (ModelState.IsValid)
             {
                 db.Ksiazkas.Add(ksiazka);
-                db.SaveChanges();
+
+                try {
+                    db.SaveChanges();
+                }
+                catch (Exception e) {
+                    string message = "";
+
+                    if (e.InnerException == null) {
+                        message = "Podano nieprawidłowe dane książki!";
+                    }
+                    else {
+                        message = e.InnerException.InnerException.Message;
+                    }
+
+                    ViewBag.Exception = message;
+                }
                 return RedirectToAction("Index");
             }
 
@@ -122,6 +137,14 @@ namespace Biblioteka.Controllers
             db.Ksiazkas.Remove(ksiazka);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Ksiazkas/Egzemplarzs/5
+        public ActionResult Egzemplarzs(int id) {
+            var egzemplarzs = from item in db.Egzemplarzs
+                              where item.IdKsiazka == id
+                              select item;
+            return View(egzemplarzs.ToList());
         }
 
         protected override void Dispose(bool disposing)

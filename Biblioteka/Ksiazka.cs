@@ -25,7 +25,10 @@ namespace Biblioteka
         [Required(ErrorMessage = "Pole IdKsiazka nie mo¿e byæ puste!")]
         public int IdKsiazka { get; set; }
 
+        [Required(ErrorMessage = "Pole IdWydawnictwo nie mo¿e byæ puste!")]
         public Nullable<int> IdWydawnictwo { get; set; }
+
+        [Required(ErrorMessage = "Pole IdGatunek nie mo¿e byæ puste!")]
         public Nullable<int> IdGatunek { get; set; }
 
         [Required(ErrorMessage = "Pole Tytul nie mo¿e byæ puste!")]

@@ -284,6 +284,7 @@
     <Content Include="Views\Egzemplarzs\Details.cshtml" />
     <Content Include="Views\Egzemplarzs\Edit.cshtml" />
     <Content Include="Views\Egzemplarzs\Index.cshtml" />
+    <Content Include="Views\Ksiazkas\Egzemplarzs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
