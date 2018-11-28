@@ -11,7 +11,8 @@ namespace Biblioteka
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Gatunek
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,8 +20,12 @@ namespace Biblioteka
         {
             this.Ksiazkas = new HashSet<Ksiazka>();
         }
-    
+
+        [Required(ErrorMessage = "Pole IdGatunek nie mo¿e byæ puste!")]
         public int IdGatunek { get; set; }
+
+        [Required(ErrorMessage = "Pole Nazwa nie mo¿e byæ puste!")]
+        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Nazwa wynosi 3.")]
         public string Nazwa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

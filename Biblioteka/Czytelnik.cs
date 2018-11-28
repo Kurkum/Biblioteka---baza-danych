@@ -11,7 +11,8 @@ namespace Biblioteka
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Czytelnik
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,10 +21,24 @@ namespace Biblioteka
             this.Wypozyczenies = new HashSet<Wypozyczenie>();
         }
     
+        [Required(ErrorMessage = "Pole IdCzytelnik nie mo¿e byæ puste!")]
         public int IdCzytelnik { get; set; }
+
+
+        [Required(ErrorMessage = "Pole Imiê nie mo¿e byæ puste!")]
+        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Imiê wynosi 3.")]
         public string Imie { get; set; }
+
+        [Required(ErrorMessage = "Pole Nazwisko nie mo¿e byæ puste!")]
+        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Nazwisko wynosi 3.")]
         public string Nazwisko { get; set; }
+
+        [Required(ErrorMessage = "Pole Telefon nie mo¿e byæ puste!")]
+        [RegularExpression(@"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]", ErrorMessage = "Pole Telefon musi byæ 9-cyfrow¹ liczb¹!")]
         public int Telefon { get; set; }
+
+        [Required(ErrorMessage = "Pole Adres nie mo¿e byæ puste!")]
+        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Adres wynosi 3.")]
         public string Adres { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

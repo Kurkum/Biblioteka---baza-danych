@@ -21,7 +21,7 @@ namespace Biblioteka
             this.Egzemplarzs = new HashSet<Egzemplarz>();
             this.Autors = new HashSet<Autor>();
         }
-    
+
         [Required(ErrorMessage = "Pole IdKsiazka nie mo¿e byæ puste!")]
         public int IdKsiazka { get; set; }
 
@@ -38,7 +38,7 @@ namespace Biblioteka
         [Required(ErrorMessage = "Pole RokWydania nie mo¿e byæ puste!")]
         [Range(1, 2018, ErrorMessage = "Rok wydania musi byæ wiêkszy ni¿ 0 i mniejszy ni¿ 2019.")]
         public int RokWydania { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Egzemplarz> Egzemplarzs { get; set; }
         public virtual Gatunek Gatunek { get; set; }

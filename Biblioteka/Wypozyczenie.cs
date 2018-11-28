@@ -11,15 +11,30 @@ namespace Biblioteka
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Wypozyczenie
     {
+        [Required(ErrorMessage = "Pole IdWypo¿yczenie nie mo¿e byæ puste!")]
         public int IdWypozyczenie { get; set; }
+
+        [Required(ErrorMessage = "Pole IdEgzemplarz nie mo¿e byæ puste!")]
         public Nullable<int> IdEgzemplarz { get; set; }
+
+        [Required(ErrorMessage = "Pole IdCzytelnik nie mo¿e byæ puste!")]
         public Nullable<int> IdCzytelnik { get; set; }
+
+        [Required(ErrorMessage = "Pole CzyOddane nie mo¿e byæ puste!")]
         public bool CzyOddane { get; set; }
+
+        [Required(ErrorMessage = "Pole TerminWypo¿yczenia nie mo¿e byæ puste!")]
         public System.DateTime TerminWypozyczenia { get; set; }
+
+        [Required(ErrorMessage = "Pole TerminOddania nie mo¿e byæ puste!")]
         public System.DateTime TerminOddania { get; set; }
+
+        
+        [Required(ErrorMessage = "Pole Wersja nie mo¿e byæ puste!")]
         public int Wersja { get; set; }
     
         public virtual Czytelnik Czytelnik { get; set; }
