@@ -166,7 +166,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KsiazkasController.cs" />
     <Compile Include="Controllers\WydawnictwoesController.cs" />
-    <Compile Include="Controllers\WypozyczeniesController.cs" />
     <Compile Include="Czytelnik.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
@@ -292,11 +291,7 @@
     <Content Include="Views\Czytelniks\Details.cshtml" />
     <Content Include="Views\Czytelniks\Edit.cshtml" />
     <Content Include="Views\Czytelniks\Index.cshtml" />
-    <Content Include="Views\Wypozyczenies\Create.cshtml" />
-    <Content Include="Views\Wypozyczenies\Delete.cshtml" />
-    <Content Include="Views\Wypozyczenies\Details.cshtml" />
-    <Content Include="Views\Wypozyczenies\Edit.cshtml" />
-    <Content Include="Views\Wypozyczenies\Index.cshtml" />
+    <Content Include="Views\Czytelniks\Wypozyczenies.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

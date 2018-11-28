@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Biblioteka.Wypozyczenie>
+
+@{
+    ViewBag.Title = "Wypożyczenia";
+}
+
+<h2>Wypożyczenia</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Termin wypożyczenia
+        </th>
+        <th>
+            Termin oddania
+        </th>
+        <th>
+            Tytuł książki
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TerminWypozyczenia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TerminOddania)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Egzemplarz.IdEgzemplarz)
+        </td>
+        <td>
+            @Html.ActionLink("Modyfikuj", "Edit", new { id=item.IdWypozyczenie })
+        </td>
+    </tr>
+}
+
+</table>

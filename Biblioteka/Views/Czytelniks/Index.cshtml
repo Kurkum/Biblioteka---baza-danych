@@ -47,7 +47,7 @@
                 @Html.ActionLink("Edytuj", "Edit", new { id = item.IdCzytelnik }) |
                 @Html.ActionLink("Szczegóły", "Details", new { id = item.IdCzytelnik }) |
                 @Html.ActionLink("Usuń", "Delete", new { id = item.IdCzytelnik }) |
-                @Html.ActionLink("Wypożyczenia", "", "Wypozyczenies/" + item.IdCzytelnik)
+                @Html.ActionLink("Wypożyczenia", "Wypozyczenies", new { id = item.IdCzytelnik })
             </td>
         </tr>
     }
