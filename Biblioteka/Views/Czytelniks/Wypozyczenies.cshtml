@@ -32,9 +32,13 @@
             @Html.DisplayFor(modelItem => item.Egzemplarz.IdEgzemplarz)
         </td>
         <td>
-            @Html.ActionLink("Modyfikuj", "Edit", new { id=item.IdWypozyczenie })
+            @Html.ActionLink("Modyfikuj", "Edit", new { id = item.IdWypozyczenie })
         </td>
     </tr>
 }
 
 </table>
+
+<p>
+    @Html.ActionLink("Wypożycz książkę", "../Wypozyczenies/Create", new { id = ViewBag.IdCzytelnikaDlaWypozyczenia })
+</p>

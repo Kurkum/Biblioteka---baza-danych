@@ -117,6 +117,8 @@ namespace Biblioteka.Controllers
 
         // GET: Czytelnik/Wypozyczenies/5
         public ActionResult Wypozyczenies(int id) {
+            ViewBag.IdCzytelnikaDlaWypozyczenia = id;
+
             var wypozyczenies = from item in db.Wypozyczenies
                                 where item.IdCzytelnik == id
                                 select item;

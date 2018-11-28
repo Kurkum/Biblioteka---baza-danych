@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Biblioteka.Wypozyczenie>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CzyOddane)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TerminWypozyczenia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TerminOddania)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Wersja)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Czytelnik.Imie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Egzemplarz.IdEgzemplarz)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CzyOddane)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TerminWypozyczenia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TerminOddania)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wersja)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Czytelnik.Imie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Egzemplarz.IdEgzemplarz)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdWypozyczenie }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdWypozyczenie }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdWypozyczenie })
+        </td>
+    </tr>
+}
+
+</table>

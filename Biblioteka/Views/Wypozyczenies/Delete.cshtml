@@ -1,0 +1,72 @@
+﻿@model Biblioteka.Wypozyczenie
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Wypozyczenie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CzyOddane)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CzyOddane)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TerminWypozyczenia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TerminWypozyczenia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TerminOddania)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TerminOddania)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Wersja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Wersja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Czytelnik.Imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Czytelnik.Imie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Egzemplarz.IdEgzemplarz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Egzemplarz.IdEgzemplarz)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
