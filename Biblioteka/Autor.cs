@@ -22,18 +22,18 @@ namespace Biblioteka
         }
 
 
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdAutor musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdAutor nie mo¿e byæ puste!")]
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdAutor w tabeli Autor musi byæ liczb¹ wiêksz¹ od zera!")]
+        [Required(ErrorMessage = "Pole IdAutor w tabeli Autor nie mo¿e byæ puste!")]
         public int IdAutor { get; set; }
 
-        [RegularExpression(@"[A-Z][a-z]*", ErrorMessage = "Pole Imiê musi zaczynaæ siê od du¿ej litery!")]
-        [Required(ErrorMessage = "Pole Imiê nie mo¿e byæ puste!")]
-        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Imiê wynosi 3.")]
+        [RegularExpression(@"[A-Z][a-z]*", ErrorMessage = "Pole Imiê w tabeli Autor musi zaczynaæ siê od du¿ej litery!")]
+        [Required(ErrorMessage = "Pole Imiê w tabeli Autor nie mo¿e byæ puste!")]
+        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Imiê w tabeli Autor wynosi 3.")]
         public string Imie { get; set; }
 
-        [RegularExpression(@"[A-Z][a-z]*", ErrorMessage = "Pole Nazwisko musi zaczynac siê od du¿ej litery!")]
-        [Required(ErrorMessage = "Pole Nazwisko nie mo¿e byæ puste!")]
-        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Nazwisko wynosi 3.")]
+        [RegularExpression(@"[A-Z][a-z]*", ErrorMessage = "Pole Nazwisko w tabeli Autor musi zaczynac siê od du¿ej litery!")]
+        [Required(ErrorMessage = "Pole Nazwisko w tabeli Autor nie mo¿e byæ puste!")]
+        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Nazwisko w tabeli Autor wynosi 3.")]
         public string Nazwisko { get; set; }
 
 

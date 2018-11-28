@@ -21,13 +21,13 @@ namespace Biblioteka
             this.Ksiazkas = new HashSet<Ksiazka>();
         }
 
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdGatunek musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdGatunek nie mo¿e byæ puste!")]
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdGatunek w tabeli Gatunek musi byæ liczb¹ wiêksz¹ od zera!")]
+        [Required(ErrorMessage = "Pole IdGatunek w tabeli Gatunek nie mo¿e byæ puste!")]
         public int IdGatunek { get; set; }
 
-        [RegularExpression(@"([A-Za-z]+\s?)+", ErrorMessage = "Pole Nazwa musi byæ zbiorem liter i spacji!")]
-        [Required(ErrorMessage = "Pole Nazwa nie mo¿e byæ puste!")]
-        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Nazwa wynosi 3.")]
+        [RegularExpression(@"([A-Za-z]+\s?)+", ErrorMessage = "Pole Nazwa w tabeli Gatunek musi byæ zbiorem liter i spacji!")]
+        [Required(ErrorMessage = "Pole Nazwa w tabeli Gatunek nie mo¿e byæ puste!")]
+        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Nazwa w tabeli Gatunek wynosi 3.")]
         public string Nazwa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

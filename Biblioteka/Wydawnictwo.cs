@@ -21,13 +21,13 @@ namespace Biblioteka
             this.Ksiazkas = new HashSet<Ksiazka>();
         }
 
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdWydawnictwo musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdWydawnictwo nie mo¿e byæ puste!")]
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdWydawnictwo w tabeli Wydawnictwo musi byæ liczb¹ wiêksz¹ od zera!")]
+        [Required(ErrorMessage = "Pole IdWydawnictwo w tabeli Wydawnictwo nie mo¿e byæ puste!")]
         public int IdWydawnictwo { get; set; }
 
-        [RegularExpression(@"([A-Za-z0-9.,]+\s?)+", ErrorMessage = "Pole IdKsi¹¿ka musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole Nazwa nie mo¿e byæ puste!")]
-        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Nazwa wynosi 3.")]
+        [RegularExpression(@"([A-Za-z0-9.,]+\s?)+", ErrorMessage = "Pole Nazwa w tabeli Wydawnictwo siê sk³adaæ z liter, cyfr, kropek, przecinków i spacji!")]
+        [Required(ErrorMessage = "Pole Nazwa w tabeli Wydawnictwo nie mo¿e byæ puste!")]
+        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Nazwa w tabeli Wydawnictwo wynosi 3.")]
         public string Nazwa { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

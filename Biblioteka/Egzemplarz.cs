@@ -21,12 +21,12 @@ namespace Biblioteka
             this.Wypozyczenies = new HashSet<Wypozyczenie>();
         }
 
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdEgzemplarz musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdEgzemplarz nie mo¿e byæ puste!")]
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdEgzemplarz w tabeli Egzemplarz musi byæ liczb¹ wiêksz¹ od zera!")]
+        [Required(ErrorMessage = "Pole IdEgzemplarz w tabeli Egzemplarz nie mo¿e byæ puste!")]
         public int IdEgzemplarz { get; set; }
 
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdKsi¹¿ka musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdKsi¹¿ka nie mo¿e byæ puste!")]
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdKsi¹¿ka w tabeli Egzemplarz musi byæ liczb¹ wiêksz¹ od zera!")]
+        [Required(ErrorMessage = "Pole IdKsi¹¿ka w tabeli Egzemplarz nie mo¿e byæ puste!")]
         public Nullable<int> IdKsiazka { get; set; }
     
 
