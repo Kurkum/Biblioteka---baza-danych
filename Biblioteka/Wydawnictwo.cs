@@ -21,9 +21,11 @@ namespace Biblioteka
             this.Ksiazkas = new HashSet<Ksiazka>();
         }
 
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdWydawnictwo musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole IdWydawnictwo nie mo¿e byæ puste!")]
         public int IdWydawnictwo { get; set; }
 
+        [RegularExpression(@"([A-Za-z0-9.,]+\s?)+", ErrorMessage = "Pole IdKsi¹¿ka musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole Nazwa nie mo¿e byæ puste!")]
         [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Nazwa wynosi 3.")]
         public string Nazwa { get; set; }

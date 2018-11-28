@@ -20,23 +20,27 @@ namespace Biblioteka
         {
             this.Wypozyczenies = new HashSet<Wypozyczenie>();
         }
-    
+
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdCzytelnik musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole IdCzytelnik nie mo¿e byæ puste!")]
         public int IdCzytelnik { get; set; }
 
 
+        [RegularExpression(@"[A-Z][a-z]*", ErrorMessage = "Pole Imiê musi zaczynaæ siê od du¿ej litery!")]
         [Required(ErrorMessage = "Pole Imiê nie mo¿e byæ puste!")]
         [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Imiê wynosi 3.")]
         public string Imie { get; set; }
 
+        [RegularExpression(@"[A-Z][a-z]*", ErrorMessage = "Pole Nazwisko musi zaczynaæ siê od du¿ej litery!")]
         [Required(ErrorMessage = "Pole Nazwisko nie mo¿e byæ puste!")]
         [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Nazwisko wynosi 3.")]
         public string Nazwisko { get; set; }
 
-        [Required(ErrorMessage = "Pole Telefon nie mo¿e byæ puste!")]
         [RegularExpression(@"[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]", ErrorMessage = "Pole Telefon musi byæ 9-cyfrow¹ liczb¹!")]
+        [Required(ErrorMessage = "Pole Telefon nie mo¿e byæ puste!")]
         public int Telefon { get; set; }
 
+        [RegularExpression(@"([A-Za-z0-9.]+\s?)+", ErrorMessage = "Pole Adres musi siê sk³adaæ z liter, cyfr, kropek i spacji!")]
         [Required(ErrorMessage = "Pole Adres nie mo¿e byæ puste!")]
         [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Adres wynosi 3.")]
         public string Adres { get; set; }

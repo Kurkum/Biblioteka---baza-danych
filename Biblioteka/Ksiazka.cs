@@ -22,19 +22,24 @@ namespace Biblioteka
             this.Autors = new HashSet<Autor>();
         }
 
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdKsi¹¿ka musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole IdKsiazka nie mo¿e byæ puste!")]
         public int IdKsiazka { get; set; }
 
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdWydawnictwo musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole IdWydawnictwo nie mo¿e byæ puste!")]
         public Nullable<int> IdWydawnictwo { get; set; }
 
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdGatunek musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole IdGatunek nie mo¿e byæ puste!")]
         public Nullable<int> IdGatunek { get; set; }
 
+        [RegularExpression(@"([A-Za-z0-9.,]*\s?)+", ErrorMessage = "Pole IdGatunek musi byæ liczb¹ wiêksz¹ od zera!")]//*, bo tytu³y s¹ bardo ró¿ne - mog¹ mieæ np. parê spacji obok siebie?
         [Required(ErrorMessage = "Pole Tytul nie mo¿e byæ puste!")]
         [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Tytu³ wynosi 3.")]
         public string Tytul { get; set; }
 
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole RokWydania musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole RokWydania nie mo¿e byæ puste!")]
         [Range(1, 2018, ErrorMessage = "Rok wydania musi byæ wiêkszy ni¿ 0 i mniejszy ni¿ 2019.")]
         public int RokWydania { get; set; }

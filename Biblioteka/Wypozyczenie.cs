@@ -15,6 +15,7 @@ namespace Biblioteka
 
     public partial class Wypozyczenie
     {
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdWypozyczenie musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole IdWypo¿yczenie nie mo¿e byæ puste!")]
         public int IdWypozyczenie { get; set; }
 

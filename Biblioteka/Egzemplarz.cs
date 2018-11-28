@@ -21,9 +21,11 @@ namespace Biblioteka
             this.Wypozyczenies = new HashSet<Wypozyczenie>();
         }
 
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdEgzemplarz musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole IdEgzemplarz nie mo¿e byæ puste!")]
         public int IdEgzemplarz { get; set; }
 
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdKsi¹¿ka musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole IdKsi¹¿ka nie mo¿e byæ puste!")]
         public Nullable<int> IdKsiazka { get; set; }
     
