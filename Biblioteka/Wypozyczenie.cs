@@ -19,9 +19,11 @@ namespace Biblioteka
         [Required(ErrorMessage = "Pole IdWypo¿yczenie nie mo¿e byæ puste!")]
         public int IdWypozyczenie { get; set; }
 
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdEgzemplarz musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole IdEgzemplarz nie mo¿e byæ puste!")]
         public Nullable<int> IdEgzemplarz { get; set; }
 
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdCzytelnik musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole IdCzytelnik nie mo¿e byæ puste!")]
         public Nullable<int> IdCzytelnik { get; set; }
 
@@ -34,7 +36,7 @@ namespace Biblioteka
         [Required(ErrorMessage = "Pole TerminOddania nie mo¿e byæ puste!")]
         public System.DateTime TerminOddania { get; set; }
 
-        
+        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole Wersja musi byæ liczb¹ wiêksz¹ od zera!")]
         [Required(ErrorMessage = "Pole Wersja nie mo¿e byæ puste!")]
         public int Wersja { get; set; }
     
