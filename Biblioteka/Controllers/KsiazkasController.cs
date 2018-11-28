@@ -39,6 +39,9 @@ namespace Biblioteka.Controllers
         // GET: Ksiazkas/Create
         public ActionResult Create()
         {
+            IEnumerable<int> ids = from ksiazka in db.Ksiazkas
+                                   select ksiazka.IdKsiazka;
+            ViewBag.IdKsiazka = ids.Last() + 1;
             ViewBag.IdGatunek = new SelectList(db.Gatuneks, "IdGatunek", "Nazwa");
             ViewBag.IdWydawnictwo = new SelectList(db.Wydawnictwoes, "IdWydawnictwo", "Nazwa");
             return View();
@@ -51,6 +54,7 @@ namespace Biblioteka.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdKsiazka,IdWydawnictwo,IdGatunek,Tytul,RokWydania")] Ksiazka ksiazka)
         {
+
             if (ModelState.IsValid)
             {
                 db.Ksiazkas.Add(ksiazka);

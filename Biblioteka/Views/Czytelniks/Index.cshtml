@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Biblioteka.Czytelnik>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Czytelnicy</h2>
+
+<p>
+    @Html.ActionLink("Dodaj nową książkę (LINQ)", "Create")
+</p>
+<p>
+    @Html.ActionLink("Dodaj nową książkę (procedura)", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Imie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nazwisko)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adres)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nazwisko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adres)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.IdCzytelnik }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.IdCzytelnik }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.IdCzytelnik }) |
+                @Html.ActionLink("Wypożyczenia", "", "Wypozyczenies/" + item.IdCzytelnik)
+            </td>
+        </tr>
+    }
+
+</table>
