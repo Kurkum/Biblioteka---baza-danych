@@ -4,7 +4,7 @@
     ViewBag.Title = "Wypożyczenia";
 }
 
-<h2>Wypożyczenia</h2>
+<h2>Wypożyczenia czytelnika @ViewBag.Imie @ViewBag.Nazwisko</h2>
 
 <table class="table">
     <tr>
@@ -21,6 +21,7 @@
     </tr>
 
 @foreach (var item in Model) {
+    if (item.CzyOddane == false) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.TerminWypozyczenia)
@@ -29,13 +30,16 @@
             @Html.DisplayFor(modelItem => item.TerminOddania)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Egzemplarz.IdEgzemplarz)
+            @Html.DisplayFor(modelItem => item.Egzemplarz.Ksiazka.Tytul)
         </td>
         <td>
-            @Html.ActionLink("Modyfikuj", "Edit", new { id = item.IdWypozyczenie })
+            @Html.ActionLink("Modyfikuj", "Edit", new { id = item.IdWypozyczenie }) |
+            @Html.ActionLink("Przedłuż książkę", "Przedluz", new { id = item.IdWypozyczenie }) |
+            @Html.ActionLink("Oddaj książkę", "Oddaj", new { id = item.IdWypozyczenie })
         </td>
     </tr>
-}
+        }
+    }
 
 </table>
 

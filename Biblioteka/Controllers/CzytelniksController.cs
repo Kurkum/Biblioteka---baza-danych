@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Biblioteka;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace Biblioteka.Controllers
 {
@@ -118,11 +120,26 @@ namespace Biblioteka.Controllers
         // GET: Czytelnik/Wypozyczenies/5
         public ActionResult Wypozyczenies(int id) {
             ViewBag.IdCzytelnikaDlaWypozyczenia = id;
-
+            ViewBag.Imie = (from czytelnik in db.Czytelniks
+                            where czytelnik.IdCzytelnik == id
+                            select czytelnik.Imie).FirstOrDefault();
+            ViewBag.Nazwisko = (from czytelnik in db.Czytelniks
+                                where czytelnik.IdCzytelnik == id
+                                select czytelnik.Nazwisko).FirstOrDefault();
             var wypozyczenies = from item in db.Wypozyczenies
                                 where item.IdCzytelnik == id
                                 select item;
             return View(wypozyczenies.ToList());
+        }
+
+        // GET: Czytelnik/Wypozyczenies/5
+        public ActionResult Przedluz(int id) {
+            ViewBag.IdCzytelnikaDlaWypozyczenia = id;
+
+            var wypozyczenies = from item in db.Wypozyczenies
+                                where item.IdWypozyczenie == id
+                                select item;
+            return View(wypozyczenies);
         }
 
         protected override void Dispose(bool disposing)

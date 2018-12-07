@@ -41,7 +41,7 @@ namespace Biblioteka.Controllers
         {
             IEnumerable<int> ids = from ksiazka in db.Ksiazkas
                                    select ksiazka.IdKsiazka;
-            ViewBag.IdKsiazka = ids.Last() + 1;
+            ViewBag.IdKsiazka = (ids.Count() == 0) ? 1 : ids.Last() + 1;
             ViewBag.IdGatunek = new SelectList(db.Gatuneks, "IdGatunek", "Nazwa");
             ViewBag.IdWydawnictwo = new SelectList(db.Wydawnictwoes, "IdWydawnictwo", "Nazwa");
             return View();
