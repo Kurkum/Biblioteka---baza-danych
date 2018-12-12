@@ -11,8 +11,7 @@ namespace Biblioteka
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Egzemplarz
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,16 +19,10 @@ namespace Biblioteka
         {
             this.Wypozyczenies = new HashSet<Wypozyczenie>();
         }
-
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdEgzemplarz w tabeli Egzemplarz musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdEgzemplarz w tabeli Egzemplarz nie mo¿e byæ puste!")]
+    
         public int IdEgzemplarz { get; set; }
-
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdKsi¹¿ka w tabeli Egzemplarz musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdKsi¹¿ka w tabeli Egzemplarz nie mo¿e byæ puste!")]
         public Nullable<int> IdKsiazka { get; set; }
     
-
         public virtual Ksiazka Ksiazka { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wypozyczenie> Wypozyczenies { get; set; }

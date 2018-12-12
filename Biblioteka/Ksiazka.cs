@@ -11,8 +11,7 @@ namespace Biblioteka
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Ksiazka
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,29 +20,13 @@ namespace Biblioteka
             this.Egzemplarzs = new HashSet<Egzemplarz>();
             this.Autors = new HashSet<Autor>();
         }
-
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdKsi¹¿ka w tabeli Ksiazka musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdKsiazka w tabeli Ksiazka nie mo¿e byæ puste!")]
+    
         public int IdKsiazka { get; set; }
-
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdWydawnictwo w tabeli Ksiazka musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdWydawnictwo w tabeli Ksiazka nie mo¿e byæ puste!")]
         public Nullable<int> IdWydawnictwo { get; set; }
-
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdGatunek w tabeli Ksiazka musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdGatunek w tabeli Ksiazka nie mo¿e byæ puste!")]
         public Nullable<int> IdGatunek { get; set; }
-
-        [RegularExpression(@"([A-Za-z0-9.,]*\s?)+", ErrorMessage = "Pole Tytul w tabeli Ksiazka musi siê sk³adaæ z liter, cyfr, kropek, przecinków i spacji!")]//*, bo tytu³y s¹ bardo ró¿ne - mog¹ mieæ np. parê spacji obok siebie?
-        [Required(ErrorMessage = "Pole Tytul w tabeli Ksiazka nie mo¿e byæ puste!")]
-        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Tytu³ w tabeli Ksiazka wynosi 3.")]
         public string Tytul { get; set; }
-
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole RokWydania w tabeli Ksiazka musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole RokWydania w tabeli Ksiazka nie mo¿e byæ puste!")]
-        [Range(1, 2018, ErrorMessage = "Rok wydania w tabeli Ksiazka musi byæ wiêkszy ni¿ 0 i mniejszy ni¿ 2019.")]
         public int RokWydania { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Egzemplarz> Egzemplarzs { get; set; }
         public virtual Gatunek Gatunek { get; set; }

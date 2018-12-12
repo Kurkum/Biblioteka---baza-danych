@@ -111,10 +111,29 @@ namespace Biblioteka.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Czytelnik czytelnik = db.Czytelniks.Find(id);
-            db.Czytelniks.Remove(czytelnik);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.UsunCzytelnika(id);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                string message = "";
+
+                if (e.InnerException == null)
+                {
+                    message = "Podano nieprawidłowe dane wypozyczenia!";
+                }
+                else
+                {
+                    message = "Czytelnik nie oddał jeszcze wszystkich książek!";
+                }
+                ViewBag.Exception = message;
+
+                return RedirectToAction("Delete");
+            }   
+            
         }
 
         // GET: Czytelnik/Wypozyczenies/5

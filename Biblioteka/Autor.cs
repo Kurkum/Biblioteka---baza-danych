@@ -11,8 +11,7 @@ namespace Biblioteka
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Autor
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,25 +19,12 @@ namespace Biblioteka
         {
             this.Ksiazkas = new HashSet<Ksiazka>();
         }
-
-
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdAutor w tabeli Autor musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdAutor w tabeli Autor nie mo¿e byæ puste!")]
+    
         public int IdAutor { get; set; }
-
-        [RegularExpression(@"[A-Z][a-z]*", ErrorMessage = "Pole Imiê w tabeli Autor musi zaczynaæ siê od du¿ej litery!")]
-        [Required(ErrorMessage = "Pole Imiê w tabeli Autor nie mo¿e byæ puste!")]
-        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Imiê w tabeli Autor wynosi 3.")]
         public string Imie { get; set; }
-
-        [RegularExpression(@"[A-Z][a-z]*", ErrorMessage = "Pole Nazwisko w tabeli Autor musi zaczynac siê od du¿ej litery!")]
-        [Required(ErrorMessage = "Pole Nazwisko w tabeli Autor nie mo¿e byæ puste!")]
-        [MinLength(3, ErrorMessage = "Minimalna d³ugoœæ pola Nazwisko w tabeli Autor wynosi 3.")]
         public string Nazwisko { get; set; }
-
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ksiazka> Ksiazkas { get; set; }
-
     }
 }

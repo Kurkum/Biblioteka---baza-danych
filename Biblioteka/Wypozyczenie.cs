@@ -11,33 +11,15 @@ namespace Biblioteka
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Wypozyczenie
     {
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdWypozyczenie w tabeli Wypozyczenie musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdWypozyczenie w tabeli Wypozyczenie nie mo¿e byæ puste!")]
         public int IdWypozyczenie { get; set; }
-
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdEgzemplarz w tabeli Wypozyczenie musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdEgzemplarz w tabeli Wypozyczenie nie mo¿e byæ puste!")]
         public Nullable<int> IdEgzemplarz { get; set; }
-
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole IdCzytelnik w tabeli Wypozyczenie musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole IdCzytelnik w tabeli Wypozyczenie nie mo¿e byæ puste!")]
         public Nullable<int> IdCzytelnik { get; set; }
-
-        [Required(ErrorMessage = "Pole CzyOddane w tabeli Wypozyczenie nie mo¿e byæ puste!")]
         public bool CzyOddane { get; set; }
-
-        [Required(ErrorMessage = "Pole TerminWypo¿yczenia w tabeli Wypozyczenie nie mo¿e byæ puste!")]
         public System.DateTime TerminWypozyczenia { get; set; }
-
-        [Required(ErrorMessage = "Pole TerminOddania w tabeli Wypozyczenie nie mo¿e byæ puste!")]
         public System.DateTime TerminOddania { get; set; }
-
-        [RegularExpression(@"[1-9][0-9]*", ErrorMessage = "Pole Wersja w tabeli Wypozyczenie musi byæ liczb¹ wiêksz¹ od zera!")]
-        [Required(ErrorMessage = "Pole Wersja w tabeli Wypozyczenie nie mo¿e byæ puste!")]
         public int Wersja { get; set; }
     
         public virtual Czytelnik Czytelnik { get; set; }
