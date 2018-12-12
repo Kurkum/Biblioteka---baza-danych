@@ -156,13 +156,13 @@ namespace Biblioteka.Controllers
         public ActionResult Przedluz(int id) {
             ViewBag.IdCzytelnikaDlaWypozyczenia = id;
 
-            var wypozyczenies = from item in db.Wypozyczenies
-                                where item.IdWypozyczenie == id
-                                select item;
-
             db.PrzedluzenieTerminuOddania(id);
 
-            return RedirectToAction("Czytelniks/Wypozyczenies/" + id);
+            var czytelnikId = from wypozyczenie in db.Wypozyczenies
+                              where wypozyczenie.IdEgzemplarz == id
+                              select wypozyczenie.IdCzytelnik;
+
+            return RedirectToAction("Wypozyczenies/" + czytelnikId.FirstOrDefault());
         }
 
         protected override void Dispose(bool disposing)
