@@ -131,7 +131,6 @@ namespace Biblioteka.Controllers
                 }
 
                 TempData["message"] = message;
-                ViewBag.Exception = message;
                 return RedirectToAction("Delete");
             }
             
@@ -155,7 +154,7 @@ namespace Biblioteka.Controllers
         // GET: Czytelnik/Przedluz/5
         public ActionResult Przedluz(int id) {
             ViewBag.IdCzytelnikaDlaWypozyczenia = id;
-
+            db.Database.ExecuteSqlCommand("set transaction isolation level repeatable read");
             db.PrzedluzenieTerminuOddania(id);
 
             var czytelnikId = from wypozyczenie in db.Wypozyczenies
