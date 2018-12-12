@@ -152,13 +152,17 @@ namespace Biblioteka.Controllers
             return View(wypozyczenies.ToList());
         }
 
-        // GET: Czytelnik/Wypozyczenies/5
+        // GET: Czytelnik/Przedluz/5
         public ActionResult Przedluz(int id) {
             ViewBag.IdCzytelnikaDlaWypozyczenia = id;
+
             var wypozyczenies = from item in db.Wypozyczenies
                                 where item.IdWypozyczenie == id
                                 select item;
-            return View(wypozyczenies);
+
+            db.PrzedluzenieTerminuOddania(id);
+
+            return RedirectToAction("Czytelniks/Wypozyczenies/" + id);
         }
 
         protected override void Dispose(bool disposing)
