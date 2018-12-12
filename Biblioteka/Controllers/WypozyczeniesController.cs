@@ -77,7 +77,7 @@ namespace Biblioteka.Controllers {
                     ViewBag.IdEgzemplarz = new SelectList(db.Egzemplarzs, "IdEgzemplarz", "IdEgzemplarz", wypozyczenie.IdEgzemplarz);
                     return View(wypozyczenie);
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("../Czytelniks/Wypozyczenies/" + id);
             }
 
             ViewBag.IdCzytelnikaDlaWypozyczenia = id;

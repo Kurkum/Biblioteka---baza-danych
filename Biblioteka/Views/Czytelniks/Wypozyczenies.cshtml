@@ -33,7 +33,7 @@
             @Html.DisplayFor(modelItem => item.Egzemplarz.Ksiazka.Tytul)
         </td>
         <td>
-            @Html.ActionLink("Modyfikuj", "Edit", new { id = item.IdWypozyczenie }) |
+            @Html.ActionLink("Modyfikuj", "../Wypozyczenies/Edit", new { id = item.IdWypozyczenie }) |
             @Html.ActionLink("Przedłuż książkę", "Przedluz", new { id = item.IdWypozyczenie }) |
             @Html.ActionLink("Oddaj książkę", "Oddaj", new { id = item.IdWypozyczenie })
         </td>
