@@ -127,12 +127,13 @@ namespace Biblioteka.Controllers
                 }
                 else
                 {
-                    message = "Czytelnik nie oddał jeszcze wszystkich książek!";
+                    message = e.InnerException.Message;
                 }
-                ViewBag.Exception = message;
 
+                TempData["message"] = message;
+                ViewBag.Exception = message;
                 return RedirectToAction("Delete");
-            }   
+            }
             
         }
 
@@ -154,7 +155,6 @@ namespace Biblioteka.Controllers
         // GET: Czytelnik/Wypozyczenies/5
         public ActionResult Przedluz(int id) {
             ViewBag.IdCzytelnikaDlaWypozyczenia = id;
-
             var wypozyczenies = from item in db.Wypozyczenies
                                 where item.IdWypozyczenie == id
                                 select item;

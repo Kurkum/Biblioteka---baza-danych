@@ -8,18 +8,16 @@
 <h3>Are you sure you want to delete this?</h3>
 
 
-@if (ViewBag.Exception != null)
+@if (TempData["message"] != null)
 {
-    <h4 style="color:red">@ViewBag.Exception</h4>
+    <h5 style="color:red">@TempData["message"]</h5>
 }
 
 
 
 
-
-
 <div>
-    <h5>Czytelnik</h5>
+    <h6>Czytelnik</h6>
     <hr />
     <dl class="dl-horizontal">
         <dt>
