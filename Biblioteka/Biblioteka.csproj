@@ -295,10 +295,7 @@
     <Content Include="Views\Egzemplarzs\Edit.cshtml" />
     <Content Include="Views\Egzemplarzs\Index.cshtml" />
     <Content Include="Views\Ksiazkas\Egzemplarzs.cshtml" />
-    <Content Include="Views\Czytelniks\Create.cshtml" />
     <Content Include="Views\Czytelniks\Delete.cshtml" />
-    <Content Include="Views\Czytelniks\Details.cshtml" />
-    <Content Include="Views\Czytelniks\Edit.cshtml" />
     <Content Include="Views\Czytelniks\Index.cshtml" />
     <Content Include="Views\Czytelniks\Wypozyczenies.cshtml" />
     <Content Include="Views\Wypozyczenies\Create.cshtml" />
@@ -307,6 +304,9 @@
     <Content Include="Views\Wypozyczenies\Edit.cshtml" />
     <Content Include="Views\Wypozyczenies\Index.cshtml" />
     <Content Include="Views\Czytelniks\Przedluz.cshtml" />
+    <Content Include="Views\Czytelniks\Create.cshtml" />
+    <Content Include="Views\Czytelniks\Edit.cshtml" />
+    <Content Include="Views\Czytelniks\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

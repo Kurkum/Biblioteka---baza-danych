@@ -25,6 +25,7 @@ namespace Biblioteka
         public string Nazwisko { get; set; }
         public int Telefon { get; set; }
         public string Adres { get; set; }
+        public Nullable<int> Wersja { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wypozyczenie> Wypozyczenies { get; set; }

@@ -48,7 +48,7 @@ namespace Biblioteka.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdCzytelnik,Imie,Nazwisko,Telefon,Adres")] Czytelnik czytelnik)
+        public ActionResult Create([Bind(Include = "IdCzytelnik,Imie,Nazwisko,Telefon,Adres,Wersja")] Czytelnik czytelnik)
         {
             if (ModelState.IsValid)
             {
@@ -80,12 +80,39 @@ namespace Biblioteka.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdCzytelnik,Imie,Nazwisko,Telefon,Adres")] Czytelnik czytelnik)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult Edit([Bind(Include = "IdCzytelnik,Imie,Nazwisko,Telefon,Adres,Wersja")] Czytelnik czytelnik) {
+            if (ModelState.IsValid) {
                 db.Entry(czytelnik).State = EntityState.Modified;
-                db.SaveChanges();
+                try {
+                    var aktualnaWersja = from czytelnikWersja in db.Czytelniks
+                                         where czytelnikWersja.IdCzytelnik == czytelnik.IdCzytelnik
+                                         select czytelnikWersja.Wersja;
+
+                    if (aktualnaWersja.FirstOrDefault() != czytelnik.Wersja) {
+                        throw new Exception("BO");
+                    }
+
+                    czytelnik.Wersja++;
+                    db.SaveChanges();
+                } catch (Exception e) {
+                    string message = "";
+                    if (e.Message == "BO") {
+                        message = "Konflikt aktualizacji - blokowanie optymistyczne!";
+                    } else if (e.InnerException == null) {
+                        message = "Podano nieprawidłowe dane czytelnika!";
+                    } else {
+                        message = e.InnerException.InnerException.Message;
+                    }
+
+                    //ViewBag.IdCzytelnikaDlaWypozyczenia = id;
+                    TempData["Exception"] = message;
+
+                    czytelnik = (from czytelnicy in db.Czytelniks
+                                 where czytelnicy.IdCzytelnik == czytelnik.IdCzytelnik
+                                 select czytelnicy).FirstOrDefault();
+
+                    return RedirectToAction("Edit");
+                }
                 return RedirectToAction("Index");
             }
             return View(czytelnik);
@@ -109,8 +136,7 @@ namespace Biblioteka.Controllers
         // POST: Czytelniks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
+        public ActionResult DeleteConfirmed(int id) {
             try
             {
                 db.UsunCzytelnika(id);
@@ -133,7 +159,35 @@ namespace Biblioteka.Controllers
                 TempData["message"] = message;
                 return RedirectToAction("Delete");
             }
-            
+
+            /*using (var context = new BibliotekaEntities()) {
+                using (DbContextTransaction dbContextTransaction = context.Database.BeginTransaction(IsolationLevel.ReadUncommitted)) {
+                    try {
+                        context.Database.ExecuteSqlCommand(
+                        @"DELETE FROM Wypozyczenie WHERE Wypozyczenie.IdCzytelnik = " + id);
+
+                        context.Database.ExecuteSqlCommand(
+                        @"DELETE FROM Czytelnik WHERE Czytelnik.IdCzytelnik = " + id);
+
+                        context.SaveChanges();
+
+                        dbContextTransaction.Commit();
+
+                        return RedirectToAction("Index");
+                    } catch (Exception e) {
+                        string message = "";
+
+                        if (e.InnerException == null) {
+                            message = "Wystąpił błąd przy usuwaniu czytelnika!";
+                        } else {
+                            message = e.InnerException.Message;
+                        }
+
+                        TempData["message"] = message;
+                        return RedirectToAction("Delete");
+                    }
+                }
+            }*/
         }
 
         // GET: Czytelnik/Wypozyczenies/5

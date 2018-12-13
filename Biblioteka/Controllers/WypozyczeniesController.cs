@@ -98,6 +98,7 @@ namespace Biblioteka.Controllers {
             }
             ViewBag.IdCzytelnik = new SelectList(db.Czytelniks, "IdCzytelnik", "Imie", wypozyczenie.IdCzytelnik);
             ViewBag.IdEgzemplarz = new SelectList(db.Egzemplarzs, "IdEgzemplarz", "IdEgzemplarz", wypozyczenie.IdEgzemplarz);
+
             return View(wypozyczenie);
         }
 
@@ -110,6 +111,15 @@ namespace Biblioteka.Controllers {
             if (ModelState.IsValid) {
                 db.Entry(wypozyczenie).State = EntityState.Modified;
                 try {
+                    var aktualnaWersja = from wypozyczenieWersja in db.Wypozyczenies
+                                         where wypozyczenieWersja.IdWypozyczenie == wypozyczenie.IdWypozyczenie
+                                         select wypozyczenieWersja.Wersja;
+
+                    if (aktualnaWersja.FirstOrDefault() != wypozyczenie.Wersja) {
+                        throw new Exception("Blokowanie optymistyczne");
+                    }
+
+                    wypozyczenie.Wersja++;
                     db.SaveChanges();
                 } catch (Exception e) {
                     string message = "";
@@ -124,12 +134,22 @@ namespace Biblioteka.Controllers {
                     ViewBag.Exception = message;
                     ViewBag.IdCzytelnik = new SelectList(db.Czytelniks, "IdCzytelnik", "Imie", wypozyczenie.IdCzytelnik);
                     ViewBag.IdEgzemplarz = new SelectList(db.Egzemplarzs, "IdEgzemplarz", "IdEgzemplarz", wypozyczenie.IdEgzemplarz);
-                    return View(wypozyczenie);
+
+                    wypozyczenie = (from wypozyczenia in db.Wypozyczenies
+                                    where wypozyczenia.IdWypozyczenie == wypozyczenie.IdWypozyczenie
+                                    select wypozyczenia).FirstOrDefault();
+
+                    return RedirectToAction("Edit");
                 }
                 return RedirectToAction("Index");
             }
             ViewBag.IdCzytelnik = new SelectList(db.Czytelniks, "IdCzytelnik", "Imie", wypozyczenie.IdCzytelnik);
             ViewBag.IdEgzemplarz = new SelectList(db.Egzemplarzs, "IdEgzemplarz", "IdEgzemplarz", wypozyczenie.IdEgzemplarz);
+
+            wypozyczenie = (from wypozyczenia in db.Wypozyczenies
+                            where wypozyczenia.IdWypozyczenie == wypozyczenie.IdWypozyczenie
+                            select wypozyczenia).FirstOrDefault();
+
             return View(wypozyczenie);
         }
 

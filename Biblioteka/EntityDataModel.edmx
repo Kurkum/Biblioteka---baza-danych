@@ -30,6 +30,7 @@
           <Property Name="Nazwisko" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Telefon" Type="int" Nullable="false" />
           <Property Name="Adres" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Wersja" Type="int" />
         </EntityType>
         <EntityType Name="Egzemplarz">
           <Key>
@@ -297,6 +298,7 @@
           <Property Name="Telefon" Type="Int32" Nullable="false" />
           <Property Name="Adres" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Wypozyczenies" Relationship="Self.FK__Wypozycze__IdCzy__38996AB5" FromRole="Czytelnik" ToRole="Wypozyczenie" />
+          <Property Name="Wersja" Type="Int32" />
         </EntityType>
         <EntityType Name="Egzemplarz">
           <Key>
@@ -468,10 +470,10 @@
             <Parameter Name="Nazwa" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Przedluzenie">
-            <Parameter Name="IdWypozyczenie" Mode="In" Type="Int32" />
+          <Parameter Name="IdWypozyczenie" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PrzedluzenieTerminuOddania">
-            <Parameter Name="IdWypozyczenie" Mode="In" Type="Int32" />
+          <Parameter Name="IdWypozyczenie" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -504,19 +506,19 @@
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="UsunAutora">
-            <Parameter Name="IdAutor" Mode="In" Type="Int32" />
+          <Parameter Name="IdAutor" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsunCzytelnika">
-            <Parameter Name="IdCzytelnik" Mode="In" Type="Int32" />
+          <Parameter Name="IdCzytelnik" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsunEgzemplarz">
-            <Parameter Name="IdKsiazka" Mode="In" Type="Int32" />
+          <Parameter Name="IdKsiazka" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsunGatunek">
-            <Parameter Name="IdGatunek" Mode="In" Type="Int32" />
+          <Parameter Name="IdGatunek" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsunWydawnictwo">
-            <Parameter Name="IdWydawnictwo" Mode="In" Type="Int32" />
+          <Parameter Name="IdWydawnictwo" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -548,6 +550,7 @@
           <EntitySetMapping Name="Czytelniks">
             <EntityTypeMapping TypeName="BibliotekaModel.Czytelnik">
               <MappingFragment StoreEntitySet="Czytelnik">
+                <ScalarProperty Name="Wersja" ColumnName="Wersja" />
                 <ScalarProperty Name="IdCzytelnik" ColumnName="IdCzytelnik" />
                 <ScalarProperty Name="Imie" ColumnName="Imie" />
                 <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
