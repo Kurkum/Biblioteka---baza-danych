@@ -4,10 +4,10 @@
     ViewBag.Title = "Egzemplarzs";
 }
 
-<h2>Egzemplarzs</h2>
+<h2>Egzemplarze</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", "Back to List")
+    @Html.ActionLink("Dodaj nowy egzemplarz", "Create", "Back to List")
 </p>
 <table class="table">
     <tr>
@@ -24,9 +24,9 @@
                 @Html.DisplayFor(modelItem => item.Ksiazka.Tytul)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.IdEgzemplarz }) |
-                @Html.ActionLink("Details", "Details", new { id = item.IdEgzemplarz }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.IdEgzemplarz })
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.IdEgzemplarz }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.IdEgzemplarz }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.IdEgzemplarz })
             </td>
         </tr>
     }
@@ -34,5 +34,5 @@
 </table>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Powrót do listy", "Index")
 </div>
