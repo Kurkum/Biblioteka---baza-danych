@@ -6,6 +6,8 @@
 
 <h2>Wypożyczenia czytelnika @ViewBag.Imie @ViewBag.Nazwisko</h2>
 
+
+
 <table class="table">
     <tr>
         <th>
@@ -46,3 +48,7 @@
 <p>
     @Html.ActionLink("Wypożycz książkę", "../Wypozyczenies/Create", new { id = ViewBag.IdCzytelnikaDlaWypozyczenia })
 </p>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
