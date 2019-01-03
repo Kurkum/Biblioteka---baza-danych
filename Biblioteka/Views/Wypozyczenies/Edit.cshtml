@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Edytuj dane wypożyczenia</h2>
 
 @if (ViewBag.Exception != null) {
     <h3 style="color:red">Wystąpił błąd!</h3>
@@ -72,12 +72,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Zapisz" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "../Czytelniks/Index", new { id = ViewBag.IdCzytelnikaDlaWypozyczenia })
+    @Html.ActionLink("Powrót do listy", "../Czytelniks/Index", new { id = ViewBag.IdCzytelnikaDlaWypozyczenia })
 </div>
