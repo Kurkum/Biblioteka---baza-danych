@@ -4,8 +4,8 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-<h3>Are you sure you want to delete this?</h3>
+<h2>Usuń czytelnika</h2>
+<h3>Czy na pewno chcesz usunąć następującego czytelnika?</h3>
 
 
 @if (TempData["message"] != null)
@@ -13,11 +13,8 @@
     <h5 style="color:red">@TempData["message"]</h5>
 }
 
-
-
-
 <div>
-    <h6>Czytelnik</h6>
+    <h6>Czytelnik:</h6>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -60,7 +57,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Powrót do listy", "Index")
         </div>
     }
 </div>

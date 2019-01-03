@@ -4,11 +4,12 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Usuń wydawnictwo</h2>
+<h3>Czy na pewno chcesz usunąć następujące wydawnictwo?</h3>
 
-<h3>Are you sure you want to delete this?</h3>
+
 <div>
-    <h4>Wydawnictwo</h4>
+    <h4>Wydawnictwo:</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -26,7 +27,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Powrót do listy", "Index")
         </div>
     }
 </div>
