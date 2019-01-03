@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Dodaj książkę</h2>
+<h2>Dodaj nową książkę</h2>
 
 @if (ViewBag.Exception != null) {
     <h3 style="color:red">Wystąpił błąd!</h3>
@@ -62,14 +62,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Dodaj" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Powrót do listy", "Index")
 </div>
 
 @section Scripts {
