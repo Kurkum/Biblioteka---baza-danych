@@ -7,7 +7,7 @@
 <h2>Gatunki</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nowy gatunek", "Create")
 </p>
 <table class="table">
     <tr>
@@ -23,9 +23,9 @@
             @Html.DisplayFor(modelItem => item.Nazwa)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdGatunek }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdGatunek }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdGatunek })
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.IdGatunek }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.IdGatunek }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.IdGatunek })
         </td>
     </tr>
 }

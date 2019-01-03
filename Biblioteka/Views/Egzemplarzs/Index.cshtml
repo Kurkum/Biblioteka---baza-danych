@@ -7,7 +7,7 @@
 <h2>Egzemplarze</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nowy egzemplarz", "Create")
 </p>
 <table class="table">
     <tr>
@@ -23,9 +23,9 @@
             @Html.DisplayFor(modelItem => item.Ksiazka.Tytul)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdEgzemplarz }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdEgzemplarz }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdEgzemplarz })
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.IdEgzemplarz }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.IdEgzemplarz }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.IdEgzemplarz })
         </td>
     </tr>
 }
