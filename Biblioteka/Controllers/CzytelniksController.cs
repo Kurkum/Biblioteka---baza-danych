@@ -40,6 +40,9 @@ namespace Biblioteka.Controllers
         // GET: Czytelniks/Create
         public ActionResult Create()
         {
+            IEnumerable<int> ids = from czytelnik in db.Czytelniks
+                                   select czytelnik.IdCzytelnik;
+            ViewBag.IdCzytelnik = (ids.Count() == 0) ? 1 : ids.Last() + 1;
             return View();
         }
 

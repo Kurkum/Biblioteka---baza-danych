@@ -38,6 +38,9 @@ namespace Biblioteka.Controllers
         // GET: Autors/Create
         public ActionResult Create()
         {
+            IEnumerable<int> ids = from autor in db.Autors
+                                   select autor.IdAutor;
+            ViewBag.IdAutor = (ids.Count() == 0) ? 1 : ids.Last() + 1;
             return View();
         }
 
