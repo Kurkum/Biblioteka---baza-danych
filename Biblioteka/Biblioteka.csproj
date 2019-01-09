@@ -165,6 +165,8 @@
     <Compile Include="Controllers\GatuneksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KsiazkasController.cs" />
+    <Compile Include="Controllers\KsiegozbiorsController.cs" />
+    <Compile Include="Controllers\PrzetrzymaneKsiazkisController.cs" />
     <Compile Include="Controllers\WydawnictwoesController.cs" />
     <Compile Include="Controllers\WypozyczeniesController.cs" />
     <Compile Include="Czytelnik.cs">
@@ -316,6 +318,16 @@
     <Content Include="Views\Czytelniks\Create.cshtml" />
     <Content Include="Views\Czytelniks\Edit.cshtml" />
     <Content Include="Views\Czytelniks\Details.cshtml" />
+    <Content Include="Views\Ksiegozbiors\Create.cshtml" />
+    <Content Include="Views\Ksiegozbiors\Delete.cshtml" />
+    <Content Include="Views\Ksiegozbiors\Details.cshtml" />
+    <Content Include="Views\Ksiegozbiors\Edit.cshtml" />
+    <Content Include="Views\Ksiegozbiors\Index.cshtml" />
+    <Content Include="Views\PrzetrzymaneKsiazkis\Create.cshtml" />
+    <Content Include="Views\PrzetrzymaneKsiazkis\Delete.cshtml" />
+    <Content Include="Views\PrzetrzymaneKsiazkis\Details.cshtml" />
+    <Content Include="Views\PrzetrzymaneKsiazkis\Edit.cshtml" />
+    <Content Include="Views\PrzetrzymaneKsiazkis\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
