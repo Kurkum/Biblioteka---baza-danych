@@ -123,6 +123,11 @@ namespace Biblioteka.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult PrzetrzymaneKsiazkis()
+        {
+            return View(db.PrzetrzymaneKsiazkis.ToList());
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

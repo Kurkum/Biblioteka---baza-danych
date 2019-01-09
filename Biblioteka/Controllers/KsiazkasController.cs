@@ -170,6 +170,10 @@ namespace Biblioteka.Controllers
             return View(egzemplarzs.ToList());
         }
 
+        public ActionResult Ksiegozbiors()
+        {
+            return View(db.Ksiegozbiors.ToList());
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

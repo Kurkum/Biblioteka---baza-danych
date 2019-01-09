@@ -12,6 +12,21 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.ImieAutora)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NazwiskoAutora)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tytul)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RokWydania)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NazwaWydawnictwa)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.LiczbaEgzemplarzy)
         </th>
         <th></th>
@@ -19,6 +34,21 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImieAutora)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NazwiskoAutora)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tytul)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RokWydania)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NazwaWydawnictwa)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.LiczbaEgzemplarzy)
         </td>

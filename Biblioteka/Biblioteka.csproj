@@ -328,6 +328,8 @@
     <Content Include="Views\PrzetrzymaneKsiazkis\Details.cshtml" />
     <Content Include="Views\PrzetrzymaneKsiazkis\Edit.cshtml" />
     <Content Include="Views\PrzetrzymaneKsiazkis\Index.cshtml" />
+    <Content Include="Views\Egzemplarzs\PrzetrzymaneKsiazkis.cshtml" />
+    <Content Include="Views\Ksiazkas\Ksiegozbiors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
