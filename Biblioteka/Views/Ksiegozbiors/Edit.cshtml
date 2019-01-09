@@ -1,0 +1,45 @@
+﻿@model Biblioteka.Ksiegozbior
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Ksiegozbior</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ImieAutora)
+
+        @Html.HiddenFor(model => model.NazwiskoAutora)
+
+        @Html.HiddenFor(model => model.Tytul)
+
+        @Html.HiddenFor(model => model.RokWydania)
+
+        @Html.HiddenFor(model => model.NazwaWydawnictwa)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LiczbaEgzemplarzy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LiczbaEgzemplarzy, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LiczbaEgzemplarzy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
