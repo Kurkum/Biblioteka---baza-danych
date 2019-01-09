@@ -34,6 +34,8 @@ namespace Biblioteka
         public virtual DbSet<Ksiazka> Ksiazkas { get; set; }
         public virtual DbSet<Wydawnictwo> Wydawnictwoes { get; set; }
         public virtual DbSet<Wypozyczenie> Wypozyczenies { get; set; }
+        public virtual DbSet<Ksiegozbior> Ksiegozbiors { get; set; }
+        public virtual DbSet<PrzetrzymaneKsiazki> PrzetrzymaneKsiazkis { get; set; }
     
         public virtual int DodajAutora(Nullable<int> idAutor, string imie, string nazwisko)
         {
@@ -267,6 +269,24 @@ namespace Biblioteka
                 new ObjectParameter("IdWydawnictwo", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UsunWydawnictwo", idWydawnictwoParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> LiczbaWypozyczenOkres(Nullable<System.DateTime> dataOd, Nullable<System.DateTime> dataDo)
+        {
+            var dataOdParameter = dataOd.HasValue ?
+                new ObjectParameter("DataOd", dataOd) :
+                new ObjectParameter("DataOd", typeof(System.DateTime));
+    
+            var dataDoParameter = dataDo.HasValue ?
+                new ObjectParameter("DataDo", dataDo) :
+                new ObjectParameter("DataDo", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("LiczbaWypozyczenOkres", dataOdParameter, dataDoParameter);
+        }
+    
+        public virtual ObjectResult<NajpopularniejszeGatunki_Result> NajpopularniejszeGatunki()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<NajpopularniejszeGatunki_Result>("NajpopularniejszeGatunki");
         }
     }
 }

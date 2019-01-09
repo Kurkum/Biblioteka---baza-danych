@@ -75,6 +75,41 @@
           <Property Name="TerminOddania" Type="date" Nullable="false" />
           <Property Name="Wersja" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Biblioteka.dbo.Ksiegozbior' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Ksiegozbior">
+          <Key>
+            <PropertyRef Name="ImieAutora" />
+            <PropertyRef Name="NazwiskoAutora" />
+            <PropertyRef Name="Tytul" />
+            <PropertyRef Name="RokWydania" />
+            <PropertyRef Name="NazwaWydawnictwa" />
+          </Key>
+          <Property Name="ImieAutora" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="NazwiskoAutora" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Tytul" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="RokWydania" Type="int" Nullable="false" />
+          <Property Name="NazwaWydawnictwa" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="LiczbaEgzemplarzy" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PrzetrzymaneKsiazki">
+          <Key>
+            <PropertyRef Name="IdEgzemplarz" />
+            <PropertyRef Name="IdCzytelnik" />
+            <PropertyRef Name="Imie" />
+            <PropertyRef Name="Nazwisko" />
+            <PropertyRef Name="Tytul" />
+          </Key>
+          <Property Name="IdEgzemplarz" Type="int" Nullable="false" />
+          <Property Name="IdCzytelnik" Type="int" Nullable="false" />
+          <Property Name="Imie" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Nazwisko" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Tytul" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IloscDni" Type="int" />
+          <Property Name="WartoscKary" Type="numeric" Precision="12" Scale="1" />
+        </EntityType>
         <Association Name="FK__Autorstwo__IdAut__300424B4">
           <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
           <End Role="Autorstwo" Type="Self.Autorstwo" Multiplicity="*" />
@@ -183,9 +218,11 @@
         <Function Name="IleEgzemplarzy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="IdKsiazki" Type="int" Mode="In" />
         </Function>
-        <Function Name="Przedluzenie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdWypozyczenie" Type="int" Mode="In" />
+        <Function Name="LiczbaWypozyczenOkres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DataOd" Type="date" Mode="In" />
+          <Parameter Name="DataDo" Type="date" Mode="In" />
         </Function>
+        <Function Name="NajpopularniejszeGatunki" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="PrzedluzenieTerminuOddania" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdWypozyczenie" Type="int" Mode="In" />
         </Function>
@@ -246,6 +283,27 @@
           <EntitySet Name="Ksiazka" EntityType="Self.Ksiazka" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wydawnictwo" EntityType="Self.Wydawnictwo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wypozyczenie" EntityType="Self.Wypozyczenie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ksiegozbior" EntityType="Self.Ksiegozbior" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Ksiegozbior].[ImieAutora] AS [ImieAutora], 
+    [Ksiegozbior].[NazwiskoAutora] AS [NazwiskoAutora], 
+    [Ksiegozbior].[Tytul] AS [Tytul], 
+    [Ksiegozbior].[RokWydania] AS [RokWydania], 
+    [Ksiegozbior].[NazwaWydawnictwa] AS [NazwaWydawnictwa], 
+    [Ksiegozbior].[LiczbaEgzemplarzy] AS [LiczbaEgzemplarzy]
+    FROM [dbo].[Ksiegozbior] AS [Ksiegozbior]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PrzetrzymaneKsiazki" EntityType="Self.PrzetrzymaneKsiazki" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PrzetrzymaneKsiazki].[IdEgzemplarz] AS [IdEgzemplarz], 
+    [PrzetrzymaneKsiazki].[IdCzytelnik] AS [IdCzytelnik], 
+    [PrzetrzymaneKsiazki].[Imie] AS [Imie], 
+    [PrzetrzymaneKsiazki].[Nazwisko] AS [Nazwisko], 
+    [PrzetrzymaneKsiazki].[Tytul] AS [Tytul], 
+    [PrzetrzymaneKsiazki].[IloscDni] AS [IloscDni], 
+    [PrzetrzymaneKsiazki].[WartoscKary] AS [WartoscKary]
+    FROM [dbo].[PrzetrzymaneKsiazki] AS [PrzetrzymaneKsiazki]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__Autorstwo__IdAut__300424B4" Association="Self.FK__Autorstwo__IdAut__300424B4">
             <End Role="Autor" EntitySet="Autor" />
             <End Role="Autorstwo" EntitySet="Autorstwo" />
@@ -520,6 +578,13 @@
           <FunctionImport Name="UsunWydawnictwo">
           <Parameter Name="IdWydawnictwo" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Ksiegozbiors" EntityType="BibliotekaModel.Ksiegozbior" />
+          <EntitySet Name="PrzetrzymaneKsiazkis" EntityType="BibliotekaModel.PrzetrzymaneKsiazki" />
+          <FunctionImport Name="LiczbaWypozyczenOkres" ReturnType="Collection(Int32)">
+            <Parameter Name="DataOd" Mode="In" Type="DateTime" />
+            <Parameter Name="DataDo" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="NajpopularniejszeGatunki" ReturnType="Collection(BibliotekaModel.NajpopularniejszeGatunki_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -531,6 +596,41 @@
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Ksiegozbior">
+          <Key>
+            <PropertyRef Name="ImieAutora" />
+            <PropertyRef Name="NazwiskoAutora" />
+            <PropertyRef Name="Tytul" />
+            <PropertyRef Name="RokWydania" />
+            <PropertyRef Name="NazwaWydawnictwa" />
+          </Key>
+          <Property Name="ImieAutora" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="NazwiskoAutora" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Tytul" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="RokWydania" Type="Int32" Nullable="false" />
+          <Property Name="NazwaWydawnictwa" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="LiczbaEgzemplarzy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PrzetrzymaneKsiazki">
+          <Key>
+            <PropertyRef Name="IdEgzemplarz" />
+            <PropertyRef Name="IdCzytelnik" />
+            <PropertyRef Name="Imie" />
+            <PropertyRef Name="Nazwisko" />
+            <PropertyRef Name="Tytul" />
+          </Key>
+          <Property Name="IdEgzemplarz" Type="Int32" Nullable="false" />
+          <Property Name="IdCzytelnik" Type="Int32" Nullable="false" />
+          <Property Name="Imie" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Nazwisko" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Tytul" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="IloscDni" Type="Int32" />
+          <Property Name="WartoscKary" Type="Decimal" Precision="12" Scale="1" />
+        </EntityType>
+        <ComplexType Name="NajpopularniejszeGatunki_Result">
+          <Property Type="String" Name="NazwaGatunek" Nullable="false" MaxLength="40" />
+          <Property Type="Int32" Name="LiczbaWypozyczen" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -619,7 +719,6 @@
           <FunctionImportMapping FunctionImportName="DodajCzytelnika" FunctionName="BibliotekaModel.Store.DodajCzytelnika" />
           <FunctionImportMapping FunctionImportName="DodajGatunek" FunctionName="BibliotekaModel.Store.DodajGatunek" />
           <FunctionImportMapping FunctionImportName="DodajWydawnictwo" FunctionName="BibliotekaModel.Store.DodajWydawnictwo" />
-          <FunctionImportMapping FunctionImportName="Przedluzenie" FunctionName="BibliotekaModel.Store.Przedluzenie" />
           <FunctionImportMapping FunctionImportName="PrzedluzenieTerminuOddania" FunctionName="BibliotekaModel.Store.PrzedluzenieTerminuOddania" />
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="BibliotekaModel.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="BibliotekaModel.Store.sp_creatediagram" />
@@ -650,6 +749,40 @@
           <FunctionImportMapping FunctionImportName="UsunEgzemplarz" FunctionName="BibliotekaModel.Store.UsunEgzemplarz" />
           <FunctionImportMapping FunctionImportName="UsunGatunek" FunctionName="BibliotekaModel.Store.UsunGatunek" />
           <FunctionImportMapping FunctionImportName="UsunWydawnictwo" FunctionName="BibliotekaModel.Store.UsunWydawnictwo" />
+          <EntitySetMapping Name="Ksiegozbiors">
+            <EntityTypeMapping TypeName="BibliotekaModel.Ksiegozbior">
+              <MappingFragment StoreEntitySet="Ksiegozbior">
+                <ScalarProperty Name="LiczbaEgzemplarzy" ColumnName="LiczbaEgzemplarzy" />
+                <ScalarProperty Name="NazwaWydawnictwa" ColumnName="NazwaWydawnictwa" />
+                <ScalarProperty Name="RokWydania" ColumnName="RokWydania" />
+                <ScalarProperty Name="Tytul" ColumnName="Tytul" />
+                <ScalarProperty Name="NazwiskoAutora" ColumnName="NazwiskoAutora" />
+                <ScalarProperty Name="ImieAutora" ColumnName="ImieAutora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrzetrzymaneKsiazkis">
+            <EntityTypeMapping TypeName="BibliotekaModel.PrzetrzymaneKsiazki">
+              <MappingFragment StoreEntitySet="PrzetrzymaneKsiazki">
+                <ScalarProperty Name="WartoscKary" ColumnName="WartoscKary" />
+                <ScalarProperty Name="IloscDni" ColumnName="IloscDni" />
+                <ScalarProperty Name="Tytul" ColumnName="Tytul" />
+                <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+                <ScalarProperty Name="Imie" ColumnName="Imie" />
+                <ScalarProperty Name="IdCzytelnik" ColumnName="IdCzytelnik" />
+                <ScalarProperty Name="IdEgzemplarz" ColumnName="IdEgzemplarz" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="LiczbaWypozyczenOkres" FunctionName="BibliotekaModel.Store.LiczbaWypozyczenOkres" />
+          <FunctionImportMapping FunctionImportName="NajpopularniejszeGatunki" FunctionName="BibliotekaModel.Store.NajpopularniejszeGatunki">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BibliotekaModel.NajpopularniejszeGatunki_Result">
+                <ScalarProperty Name="NazwaGatunek" ColumnName="NazwaGatunek" />
+                <ScalarProperty Name="LiczbaWypozyczen" ColumnName="LiczbaWypozyczen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
