@@ -17,6 +17,7 @@ namespace Biblioteka.Controllers
         // GET: Autors
         public ActionResult Index()
         {
+
             return View(db.Autors.ToList());
         }
 

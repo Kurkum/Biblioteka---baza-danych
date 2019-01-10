@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Biblioteka.NajpopularniejszeGatunki_Result>
+
+@{
+    ViewBag.Title = "Najpopularniejsze gatunki";
+}
+
+<h2>Najpopularniejsze gatunki</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Nazwa gatunku
+        </th>
+        <th>
+            Ilość książek
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NazwaGatunek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LiczbaWypozyczen)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("Powrót do listy", "Index")

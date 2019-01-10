@@ -18,6 +18,7 @@ namespace Biblioteka.Controllers
         public ActionResult Index()
         {
             var egzemplarzs = db.Egzemplarzs.Include(e => e.Ksiazka);
+            ViewBag.LiczbaWypozyczen = db.LiczbaWypozyczenOkres(DateTime.Today.AddDays(-365), DateTime.Today).FirstOrDefault();
             return View(egzemplarzs.ToList());
         }
 

@@ -53,6 +53,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -107,9 +110,6 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -202,6 +202,8 @@
     <Compile Include="Ksiegozbior.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Dluznik.cs" />
+    <Compile Include="Models\NajlepszyCzytelnik.cs" />
     <Compile Include="NajpopularniejszeGatunki_Result.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
@@ -330,10 +332,11 @@
     <Content Include="Views\PrzetrzymaneKsiazkis\Index.cshtml" />
     <Content Include="Views\Egzemplarzs\PrzetrzymaneKsiazkis.cshtml" />
     <Content Include="Views\Ksiazkas\Ksiegozbiors.cshtml" />
+    <Content Include="Views\Gatuneks\NajpopularniejszeGatunki.cshtml" />
+    <Content Include="Views\Czytelniks\NajlepsiCzytelnicy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

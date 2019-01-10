@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Biblioteka;
 using System.Configuration;
 using System.Data.SqlClient;
+using Biblioteka.Models;
+using Newtonsoft.Json;
 
 namespace Biblioteka.Controllers
 {
@@ -19,8 +23,48 @@ namespace Biblioteka.Controllers
         // GET: Czytelniks
         public ActionResult Index()
         {
+            var czytelnicy = (from czytelnik in db.Czytelniks
+                            select czytelnik);
+            List<Dluznik> dluznicy = new List<Dluznik>();
+
+            //TODO: dodać funkcję obliczającą wartość kary
+            foreach (var czytelnik in czytelnicy) {
+                //decimal wartoscKary = db.WartoscKary(czytelnik.IdCzytelnik);
+                //if (wartoscKary) != 0.0m)
+                {
+                    dluznicy.Add(new Dluznik(czytelnik.IdCzytelnik, 1.2m));
+                }
+            }
+
+            string json = JsonConvert.SerializeObject(dluznicy);
+
+            FileStream fileStream = new FileStream(@"C:/JSON/dluznicy.json", FileMode.Create, FileAccess.ReadWrite);
+            StreamWriter streamWriter = new StreamWriter(fileStream);
+
+            streamWriter.Write(json);
+
+            streamWriter.Close();
+            fileStream.Close();
+
             return View(db.Czytelniks.ToList());
         }
+
+        // GET: Najpopualrniejsze gatunki
+        public ActionResult NajlepsiCzytelnicy() {
+            var czytelnicy = (from czytelnik in db.Czytelniks
+                              select czytelnik).ToArray();
+
+            List<NajlepszyCzytelnik> najlepsiCzytelnicy = new List<NajlepszyCzytelnik>();
+
+            foreach (var czytelnik in czytelnicy) {
+                var liczbaWypozyczen = (from wypozyczenie in db.Wypozyczenies
+                                        select wypozyczenie).Where(wypozyczenie => wypozyczenie.IdCzytelnik == czytelnik.IdCzytelnik).Count();
+                najlepsiCzytelnicy.Add(new NajlepszyCzytelnik(czytelnik.Imie, czytelnik.Nazwisko, liczbaWypozyczen));
+            }
+
+            return View(najlepsiCzytelnicy.Where(czytelnik => czytelnik.Liczba != 0).OrderByDescending(czytelnik => czytelnik.Liczba).Take(5));
+        }
+
 
         // GET: Czytelniks/Details/5
         public ActionResult Details(int? id)
@@ -34,6 +78,7 @@ namespace Biblioteka.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(czytelnik);
         }
 

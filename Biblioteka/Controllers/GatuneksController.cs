@@ -20,6 +20,11 @@ namespace Biblioteka.Controllers
             return View(db.Gatuneks.ToList());
         }
 
+        // GET: Najpopualrniejsze gatunki
+        public ActionResult NajpopularniejszeGatunki() {
+            return View(db.NajpopularniejszeGatunki().ToList());
+        }
+
         // GET: Gatuneks/Details/5
         public ActionResult Details(int? id)
         {
