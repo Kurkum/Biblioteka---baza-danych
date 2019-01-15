@@ -58,6 +58,28 @@ namespace Biblioteka.Controllers
             return View(wydawnictwo);
         }
 
+        public ActionResult CreateUsingProcedure()
+        {
+            var ids = from wydawnictwo in db.Wydawnictwoes
+                      select wydawnictwo;
+            ViewBag.IdWydawnictwo = (ids.Count() == 0) ? 1 : ids.ToArray().OrderBy(element => element.IdWydawnictwo).LastOrDefault().IdWydawnictwo + 1;
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateUsingProcedure([Bind(Include = "IdWydawnictwo, Nazwa")] Wydawnictwo wydawnictwo)
+        {
+            if (ModelState.IsValid)
+            {
+                db.DodajWydawnictwo(wydawnictwo.IdWydawnictwo, wydawnictwo.Nazwa);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(wydawnictwo);
+        }
+
         // GET: Wydawnictwoes/Edit/5
         public ActionResult Edit(int? id)
         {
