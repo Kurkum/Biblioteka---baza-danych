@@ -100,7 +100,7 @@ namespace Biblioteka
         {
             var idWydawnictwoParameter = idWydawnictwo.HasValue ?
                 new ObjectParameter("IdWydawnictwo", idWydawnictwo) :
-                new ObjectParameter("IdWydawnictwo", typeof(string));
+                new ObjectParameter("IdWydawnictwo", typeof(int));
     
             var nazwaParameter = nazwa != null ?
                 new ObjectParameter("Nazwa", nazwa) :
@@ -304,6 +304,45 @@ namespace Biblioteka
                 new ObjectParameter("IdKsiazka", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DodajEgzemplarz", idEgzemplarzParameter, idKsiazkaParameter);
+        }
+    
+        public virtual int DodajKsiazka(Nullable<int> idKsiazka, Nullable<int> idWydawnictwo, Nullable<int> idGatunek, string tytul, Nullable<int> rokWydania)
+        {
+            var idKsiazkaParameter = idKsiazka.HasValue ?
+                new ObjectParameter("IdKsiazka", idKsiazka) :
+                new ObjectParameter("IdKsiazka", typeof(int));
+    
+            var idWydawnictwoParameter = idWydawnictwo.HasValue ?
+                new ObjectParameter("IdWydawnictwo", idWydawnictwo) :
+                new ObjectParameter("IdWydawnictwo", typeof(int));
+    
+            var idGatunekParameter = idGatunek.HasValue ?
+                new ObjectParameter("IdGatunek", idGatunek) :
+                new ObjectParameter("IdGatunek", typeof(int));
+    
+            var tytulParameter = tytul != null ?
+                new ObjectParameter("Tytul", tytul) :
+                new ObjectParameter("Tytul", typeof(string));
+    
+            var rokWydaniaParameter = rokWydania.HasValue ?
+                new ObjectParameter("RokWydania", rokWydania) :
+                new ObjectParameter("RokWydania", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DodajKsiazka", idKsiazkaParameter, idWydawnictwoParameter, idGatunekParameter, tytulParameter, rokWydaniaParameter);
+        }
+    
+        public virtual ObjectResult<KsiegozbiorProcedure_Result> KsiegozbiorProcedure()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<KsiegozbiorProcedure_Result>("KsiegozbiorProcedure");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> WartoscKary2(Nullable<int> idCzytelnik)
+        {
+            var idCzytelnikParameter = idCzytelnik.HasValue ?
+                new ObjectParameter("IdCzytelnik", idCzytelnik) :
+                new ObjectParameter("IdCzytelnik", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("WartoscKary2", idCzytelnikParameter);
         }
     }
 }

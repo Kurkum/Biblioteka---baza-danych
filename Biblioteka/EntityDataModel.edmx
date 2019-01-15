@@ -215,6 +215,13 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
           <Parameter Name="IdGatunek" Type="int" Mode="In" />
           <Parameter Name="Nazwa" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="DodajKsiazka" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdKsiazka" Type="int" Mode="In" />
+          <Parameter Name="IdWydawnictwo" Type="int" Mode="In" />
+          <Parameter Name="IdGatunek" Type="int" Mode="In" />
+          <Parameter Name="Tytul" Type="varchar" Mode="In" />
+          <Parameter Name="RokWydania" Type="int" Mode="In" />
+        </Function>
         <Function Name="DodajWydawnictwo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdWydawnictwo" Type="int" Mode="In" />
           <Parameter Name="Nazwa" Type="varchar" Mode="In" />
@@ -223,6 +230,7 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
         <Function Name="IleEgzemplarzy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
           <Parameter Name="IdKsiazki" Type="int" Mode="In" />
         </Function>
+        <Function Name="KsiegozbiorProcedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="LiczbaWypozyczenOkres" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DataOd" Type="date" Mode="In" />
           <Parameter Name="DataDo" Type="date" Mode="In" />
@@ -278,6 +286,9 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
         </Function>
         <Function Name="WartoscKary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="money">
           <Parameter Name="IdKlient" Type="int" Mode="In" />
+        </Function>
+        <Function Name="WartoscKary2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCzytelnik" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="BibliotekaModelStoreContainer">
           <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
@@ -595,6 +606,17 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
             <Parameter Name="IdEgzemplarz" Mode="In" Type="Int32" />
             <Parameter Name="IdKsiazka" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="DodajKsiazka">
+            <Parameter Name="IdKsiazka" Mode="In" Type="Int32" />
+            <Parameter Name="IdWydawnictwo" Mode="In" Type="Int32" />
+            <Parameter Name="IdGatunek" Mode="In" Type="Int32" />
+            <Parameter Name="Tytul" Mode="In" Type="String" />
+            <Parameter Name="RokWydania" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="KsiegozbiorProcedure" ReturnType="Collection(BibliotekaModel.KsiegozbiorProcedure_Result)" />
+          <FunctionImport Name="WartoscKary2" ReturnType="Collection(Decimal)">
+            <Parameter Name="IdCzytelnik" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -641,6 +663,13 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
         <ComplexType Name="NajpopularniejszeGatunki_Result">
           <Property Type="String" Name="NazwaGatunek" Nullable="false" MaxLength="40" />
           <Property Type="Int32" Name="LiczbaWypozyczen" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="KsiegozbiorProcedure_Result">
+          <Property Type="String" Name="Imie" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="Nazwisko" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="Tytul" Nullable="false" MaxLength="40" />
+          <Property Type="Int32" Name="RokWydania" Nullable="false" />
+          <Property Type="Int32" Name="LiczbaEgzemplarzy" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -794,6 +823,19 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DodajEgzemplarz" FunctionName="BibliotekaModel.Store.DodajEgzemplarz" />
+          <FunctionImportMapping FunctionImportName="DodajKsiazka" FunctionName="BibliotekaModel.Store.DodajKsiazka" />
+          <FunctionImportMapping FunctionImportName="KsiegozbiorProcedure" FunctionName="BibliotekaModel.Store.KsiegozbiorProcedure">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BibliotekaModel.KsiegozbiorProcedure_Result">
+                <ScalarProperty Name="Imie" ColumnName="Imie" />
+                <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+                <ScalarProperty Name="Tytul" ColumnName="Tytul" />
+                <ScalarProperty Name="RokWydania" ColumnName="RokWydania" />
+                <ScalarProperty Name="LiczbaEgzemplarzy" ColumnName="LiczbaEgzemplarzy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="WartoscKary2" FunctionName="BibliotekaModel.Store.WartoscKary2" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

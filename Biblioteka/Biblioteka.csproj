@@ -202,6 +202,9 @@
     <Compile Include="Ksiegozbior.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="KsiegozbiorProcedure_Result.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Dluznik.cs" />
     <Compile Include="Models\NajlepszyCzytelnik.cs" />
     <Compile Include="NajpopularniejszeGatunki_Result.cs">
@@ -338,6 +341,7 @@
     <Content Include="Views\Autors\CreateUsingProcedure.cshtml" />
     <Content Include="Views\Wydawnictwoes\CreateUsingProcedure.cshtml" />
     <Content Include="Views\Czytelniks\CreateUsingProcedure.cshtml" />
+    <Content Include="Views\Ksiazkas\CreateUsingProcedure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

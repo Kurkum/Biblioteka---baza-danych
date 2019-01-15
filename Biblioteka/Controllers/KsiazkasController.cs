@@ -84,6 +84,58 @@ namespace Biblioteka.Controllers
             return View(ksiazka);
         }
 
+
+        public ActionResult CreateUsingProcedure()
+        {
+            var ksiazki = from ksiazka in db.Ksiazkas
+                          select ksiazka;
+            ViewBag.IdKsiazka = (ksiazki.Count() == 0) ? 1 : ksiazki.ToArray().OrderBy(element => element.IdKsiazka).LastOrDefault().IdKsiazka + 1;
+            ViewBag.IdGatunek = new SelectList(db.Gatuneks, "IdGatunek", "Nazwa");
+            ViewBag.IdWydawnictwo = new SelectList(db.Wydawnictwoes, "IdWydawnictwo", "Nazwa");
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateUsingProcedure([Bind(Include = "IdKsiazka,IdWydawnictwo,IdGatunek,Tytul,RokWydania")] Ksiazka ksiazka)
+        {
+
+            if (ModelState.IsValid)
+            {
+                db.DodajKsiazka(ksiazka.IdKsiazka, ksiazka.IdWydawnictwo, ksiazka.IdGatunek, ksiazka.Tytul, ksiazka.RokWydania);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane książki!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+
+                    ViewBag.Exception = message;
+                    ViewBag.IdGatunek = new SelectList(db.Gatuneks, "IdGatunek", "Nazwa", ksiazka.IdGatunek);
+                    ViewBag.IdWydawnictwo = new SelectList(db.Wydawnictwoes, "IdWydawnictwo", "Nazwa", ksiazka.IdWydawnictwo);
+                    return View(ksiazka);
+                }
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.IdGatunek = new SelectList(db.Gatuneks, "IdGatunek", "Nazwa", ksiazka.IdGatunek);
+            ViewBag.IdWydawnictwo = new SelectList(db.Wydawnictwoes, "IdWydawnictwo", "Nazwa", ksiazka.IdWydawnictwo);
+
+            
+            return View(ksiazka);
+        }
+
         // GET: Ksiazkas/Edit/5
         public ActionResult Edit(int? id)
         {
