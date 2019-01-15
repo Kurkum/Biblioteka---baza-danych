@@ -316,7 +316,6 @@
     <Content Include="Views\Wypozyczenies\Details.cshtml" />
     <Content Include="Views\Wypozyczenies\Edit.cshtml" />
     <Content Include="Views\Wypozyczenies\Index.cshtml" />
-    <Content Include="Views\Czytelniks\Przedluz.cshtml" />
     <Content Include="Views\Czytelniks\Create.cshtml" />
     <Content Include="Views\Czytelniks\Edit.cshtml" />
     <Content Include="Views\Czytelniks\Details.cshtml" />

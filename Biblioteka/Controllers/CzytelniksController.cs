@@ -23,7 +23,7 @@ namespace Biblioteka.Controllers
         // GET: Czytelniks
         public ActionResult Index()
         {
-            var czytelnicy = (from czytelnik in db.Czytelniks
+            /*var czytelnicy = (from czytelnik in db.Czytelniks
                             select czytelnik);
             List<Dluznik> dluznicy = new List<Dluznik>();
 
@@ -38,18 +38,18 @@ namespace Biblioteka.Controllers
 
             string json = JsonConvert.SerializeObject(dluznicy);
 
-            FileStream fileStream = new FileStream(@"C:/JSON/dluznicy.json", FileMode.Create, FileAccess.ReadWrite);
+            FileStream fileStream = new FileStream(@"dluznicy.json", FileMode.Create, FileAccess.ReadWrite);
             StreamWriter streamWriter = new StreamWriter(fileStream);
 
             streamWriter.Write(json);
 
             streamWriter.Close();
-            fileStream.Close();
+            fileStream.Close();*/
 
             return View(db.Czytelniks.ToList());
         }
 
-        // GET: Najpopualrniejsze gatunki
+        // GET: Najpopularniejsze gatunki
         public ActionResult NajlepsiCzytelnicy() {
             var czytelnicy = (from czytelnik in db.Czytelniks
                               select czytelnik).ToArray();
@@ -65,6 +65,18 @@ namespace Biblioteka.Controllers
             return View(najlepsiCzytelnicy.Where(czytelnik => czytelnik.Liczba != 0).OrderByDescending(czytelnik => czytelnik.Liczba).Take(5));
         }
 
+        // POST: Czytelniks/Oddaj/5
+        public ActionResult Oddaj(int id) {
+            var wypozyczenie = (from wypozyczenia in db.Wypozyczenies
+                                where wypozyczenia.IdWypozyczenie == id
+                                select wypozyczenia).ToArray().FirstOrDefault();
+
+            wypozyczenie.CzyOddane = true;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Wypozyczenies/" + wypozyczenie.IdCzytelnik);
+        }
 
         // GET: Czytelniks/Details/5
         public ActionResult Details(int? id)
@@ -259,9 +271,9 @@ namespace Biblioteka.Controllers
             db.Database.ExecuteSqlCommand("set transaction isolation level repeatable read");
             db.PrzedluzenieTerminuOddania(id);
 
-            var czytelnikId = from wypozyczenie in db.Wypozyczenies
-                              where wypozyczenie.IdEgzemplarz == id
-                              select wypozyczenie.IdCzytelnik;
+            var czytelnikId = (from wypozyczenie in db.Wypozyczenies
+                               where wypozyczenie.IdWypozyczenie == id
+                               select wypozyczenie.IdCzytelnik).ToArray();
 
             return RedirectToAction("Wypozyczenies/" + czytelnikId.FirstOrDefault());
         }
