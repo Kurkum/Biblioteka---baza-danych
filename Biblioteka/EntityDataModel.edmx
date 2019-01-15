@@ -205,6 +205,11 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
           <Parameter Name="Nazwisko" Type="varchar" Mode="In" />
           <Parameter Name="Telefon" Type="int" Mode="In" />
           <Parameter Name="Adres" Type="varchar" Mode="In" />
+          <Parameter Name="Wersja" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DodajEgzemplarz" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEgzemplarz" Type="int" Mode="In" />
+          <Parameter Name="IdKsiazka" Type="int" Mode="In" />
         </Function>
         <Function Name="DodajGatunek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdGatunek" Type="int" Mode="In" />
@@ -518,6 +523,7 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
             <Parameter Name="Nazwisko" Mode="In" Type="String" />
             <Parameter Name="Telefon" Mode="In" Type="Int32" />
             <Parameter Name="Adres" Mode="In" Type="String" />
+            <Parameter Name="Wersja" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DodajGatunek">
             <Parameter Name="IdGatunek" Mode="In" Type="Int32" />
@@ -585,6 +591,10 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
             <Parameter Name="DataDo" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="NajpopularniejszeGatunki" ReturnType="Collection(BibliotekaModel.NajpopularniejszeGatunki_Result)" />
+          <FunctionImport Name="DodajEgzemplarz">
+            <Parameter Name="IdEgzemplarz" Mode="In" Type="Int32" />
+            <Parameter Name="IdKsiazka" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -783,6 +793,7 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DodajEgzemplarz" FunctionName="BibliotekaModel.Store.DodajEgzemplarz" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

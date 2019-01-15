@@ -54,7 +54,7 @@ namespace Biblioteka
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DodajAutora", idAutorParameter, imieParameter, nazwiskoParameter);
         }
     
-        public virtual int DodajCzytelnika(Nullable<int> idCzytelnik, string imie, string nazwisko, Nullable<int> telefon, string adres)
+        public virtual int DodajCzytelnika(Nullable<int> idCzytelnik, string imie, string nazwisko, Nullable<int> telefon, string adres, Nullable<int> wersja)
         {
             var idCzytelnikParameter = idCzytelnik.HasValue ?
                 new ObjectParameter("IdCzytelnik", idCzytelnik) :
@@ -76,7 +76,11 @@ namespace Biblioteka
                 new ObjectParameter("Adres", adres) :
                 new ObjectParameter("Adres", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DodajCzytelnika", idCzytelnikParameter, imieParameter, nazwiskoParameter, telefonParameter, adresParameter);
+            var wersjaParameter = wersja.HasValue ?
+                new ObjectParameter("Wersja", wersja) :
+                new ObjectParameter("Wersja", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DodajCzytelnika", idCzytelnikParameter, imieParameter, nazwiskoParameter, telefonParameter, adresParameter, wersjaParameter);
         }
     
         public virtual int DodajGatunek(Nullable<int> idGatunek, string nazwa)
@@ -287,6 +291,19 @@ namespace Biblioteka
         public virtual ObjectResult<NajpopularniejszeGatunki_Result> NajpopularniejszeGatunki()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<NajpopularniejszeGatunki_Result>("NajpopularniejszeGatunki");
+        }
+    
+        public virtual int DodajEgzemplarz(Nullable<int> idEgzemplarz, Nullable<int> idKsiazka)
+        {
+            var idEgzemplarzParameter = idEgzemplarz.HasValue ?
+                new ObjectParameter("IdEgzemplarz", idEgzemplarz) :
+                new ObjectParameter("IdEgzemplarz", typeof(int));
+    
+            var idKsiazkaParameter = idKsiazka.HasValue ?
+                new ObjectParameter("IdKsiazka", idKsiazka) :
+                new ObjectParameter("IdKsiazka", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DodajEgzemplarz", idEgzemplarzParameter, idKsiazkaParameter);
         }
     }
 }

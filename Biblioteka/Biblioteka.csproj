@@ -334,6 +334,7 @@
     <Content Include="Views\Ksiazkas\Ksiegozbiors.cshtml" />
     <Content Include="Views\Gatuneks\NajpopularniejszeGatunki.cshtml" />
     <Content Include="Views\Czytelniks\NajlepsiCzytelnicy.cshtml" />
+    <Content Include="Views\Egzemplarzs\CreateUsingProcedure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -65,6 +65,31 @@ namespace Biblioteka.Controllers
             return View(egzemplarz);
         }
 
+        // GET: Egzemplarzs/CreateUsingProcedure
+        public ActionResult CreateUsingProcedure() {
+            IEnumerable<int> ids = from egzemplarz in db.Egzemplarzs
+                                   select egzemplarz.IdEgzemplarz;
+            ViewBag.IdEgzemplarz = (ids.Count() == 0) ? 1 : ids.Last() + 1;
+            ViewBag.IdKsiazka = new SelectList(db.Ksiazkas, "IdKsiazka", "Tytul");
+            return View();
+        }
+
+        // POST: Egzemplarzs/CreateUsingProcedure
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateUsingProcedure([Bind(Include = "IdEgzemplarz,IdKsiazka")] Egzemplarz egzemplarz) {
+            if (ModelState.IsValid) {
+                db.DodajEgzemplarz(egzemplarz.IdEgzemplarz, egzemplarz.IdKsiazka);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.IdKsiazka = new SelectList(db.Ksiazkas, "IdKsiazka", "Tytul", egzemplarz.IdKsiazka);
+            return View(egzemplarz);
+        }
+
         // GET: Egzemplarzs/Edit/5
         public ActionResult Edit(int? id)
         {
