@@ -120,6 +120,28 @@ namespace Biblioteka.Controllers
             return View(czytelnik);
         }
 
+        public ActionResult CreateUsingProcedure()
+        {
+            var ids = from czytelnik in db.Czytelniks
+                      select czytelnik;
+            ViewBag.IdCzytelnik = (ids.Count() == 0) ? 1 : ids.ToArray().OrderBy(element => element.IdCzytelnik).LastOrDefault().IdCzytelnik + 1;
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateUsingProcedure([Bind(Include = "IdCzytelnik,Imie,Nazwisko,Telefon,Adres,Wersja")] Czytelnik czytelnik)
+        {
+            if (ModelState.IsValid)
+            {
+                db.DodajCzytelnika(czytelnik.IdCzytelnik, czytelnik.Imie, czytelnik.Nazwisko, czytelnik.Telefon, czytelnik.Adres, czytelnik.Wersja);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(czytelnik);
+        }
+
         // GET: Czytelniks/Edit/5
         public ActionResult Edit(int? id)
         {
