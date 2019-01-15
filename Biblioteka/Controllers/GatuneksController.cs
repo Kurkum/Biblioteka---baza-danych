@@ -46,6 +46,14 @@ namespace Biblioteka.Controllers
             return View();
         }
 
+        public ActionResult CreateUsingProcedure()
+        {
+            IEnumerable<int> ids = from gatunek in db.Gatuneks
+                                   select gatunek.IdGatunek;
+            ViewBag.IdGatunek = (ids.Count() == 0) ? 1 : ids.Last() + 1;
+            return View();
+        }
+
         // POST: Gatuneks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -60,6 +68,19 @@ namespace Biblioteka.Controllers
                 return RedirectToAction("Index");
             }
 
+            return View(gatunek);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateUsingProcedure([Bind(Include = "IdGatunek, Nazwa")] Gatunek gatunek)
+        {
+            if (ModelState.IsValid)
+            {
+                db.DodajGatunek(gatunek.IdGatunek, gatunek.Nazwa);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
             return View(gatunek);
         }
 

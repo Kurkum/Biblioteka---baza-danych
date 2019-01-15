@@ -335,6 +335,7 @@
     <Content Include="Views\Gatuneks\NajpopularniejszeGatunki.cshtml" />
     <Content Include="Views\Czytelniks\NajlepsiCzytelnicy.cshtml" />
     <Content Include="Views\Egzemplarzs\CreateUsingProcedure.cshtml" />
+    <Content Include="Views\Gatuneks\CreateUsingProcedure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
