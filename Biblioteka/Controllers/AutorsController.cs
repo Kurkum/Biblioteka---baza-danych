@@ -39,10 +39,32 @@ namespace Biblioteka.Controllers
         // GET: Autors/Create
         public ActionResult Create()
         {
-            IEnumerable<int> ids = from autor in db.Autors
-                                   select autor.IdAutor;
-            ViewBag.IdAutor = (ids.Count() == 0) ? 1 : ids.Last() + 1;
+            var ids = from autor in db.Autors
+                                   select autor;
+            ViewBag.IdAutor = (ids.Count() == 0) ? 1 : ids.ToArray().OrderBy(element => element.IdAutor).LastOrDefault().IdAutor + 1;
             return View();
+        }
+
+        public ActionResult CreateUsingProcedure()
+        {
+            var ids = from autor in db.Autors
+                           select autor;
+
+            ViewBag.IdAutor = (ids.Count() == 0) ? 1 : ids.ToArray().OrderBy(element => element.IdAutor).LastOrDefault().IdAutor + 1;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateUsingProcedure([Bind(Include = "IdAutor, Imie, Nazwisko")] Autor autor)
+        {
+            if (ModelState.IsValid)
+            {
+                db.DodajAutora(autor.IdAutor, autor.Imie, autor.Nazwisko);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(autor);
         }
 
         // POST: Autors/Create

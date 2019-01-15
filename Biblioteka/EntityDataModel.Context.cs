@@ -100,7 +100,7 @@ namespace Biblioteka
         {
             var idWydawnictwoParameter = idWydawnictwo.HasValue ?
                 new ObjectParameter("IdWydawnictwo", idWydawnictwo) :
-                new ObjectParameter("IdWydawnictwo", typeof(int));
+                new ObjectParameter("IdWydawnictwo", typeof(string));
     
             var nazwaParameter = nazwa != null ?
                 new ObjectParameter("Nazwa", nazwa) :
