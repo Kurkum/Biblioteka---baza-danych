@@ -48,9 +48,9 @@ namespace Biblioteka.Controllers
 
         public ActionResult CreateUsingProcedure()
         {
-            IEnumerable<int> ids = from gatunek in db.Gatuneks
-                                   select gatunek.IdGatunek;
-            ViewBag.IdGatunek = (ids.Count() == 0) ? 1 : ids.Last() + 1;
+            var ids = from gatunek in db.Gatuneks
+                                   select gatunek;
+            ViewBag.IdGatunek = (ids.Count() == 0) ? 1 : ids.ToArray().OrderBy(element => element.IdGatunek).LastOrDefault().IdGatunek + 1;
             return View();
         }
 

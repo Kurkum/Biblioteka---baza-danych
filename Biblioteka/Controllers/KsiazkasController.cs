@@ -38,9 +38,9 @@ namespace Biblioteka.Controllers
 
         // GET: Ksiazkas/Create
         public ActionResult Create() {
-            var ksiazki = (from ksiazka in db.Ksiazkas
-                           select ksiazka);
-            ViewBag.IdKsiazka = (ksiazki.Count() == 0) ? 1 : ksiazki.ToArray().LastOrDefault().IdKsiazka + 1;
+            var ksiazki = from ksiazka in db.Ksiazkas
+                          select ksiazka;
+            ViewBag.IdKsiazka = (ksiazki.Count() == 0) ? 1 : ksiazki.ToArray().OrderBy(element => element.IdKsiazka).LastOrDefault().IdKsiazka + 1;
             ViewBag.IdGatunek = new SelectList(db.Gatuneks, "IdGatunek", "Nazwa");
             ViewBag.IdWydawnictwo = new SelectList(db.Wydawnictwoes, "IdWydawnictwo", "Nazwa");
             return View();
