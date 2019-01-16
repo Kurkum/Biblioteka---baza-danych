@@ -17,7 +17,6 @@ namespace Biblioteka.Controllers
         // GET: Autors
         public ActionResult Index()
         {
-
             return View(db.Autors.ToList());
         }
 
@@ -40,7 +39,7 @@ namespace Biblioteka.Controllers
         public ActionResult Create()
         {
             var ids = from autor in db.Autors
-                                   select autor;
+                      select autor;
             ViewBag.IdAutor = (ids.Count() == 0) ? 1 : ids.ToArray().OrderBy(element => element.IdAutor).LastOrDefault().IdAutor + 1;
             return View();
         }

@@ -344,5 +344,45 @@ namespace Biblioteka
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("WartoscKary2", idCzytelnikParameter);
         }
+    
+        public virtual ObjectResult<AutorstwoPoIdKsiazki_Result> AutorstwoPoIdKsiazki(Nullable<int> idKsiazka)
+        {
+            var idKsiazkaParameter = idKsiazka.HasValue ?
+                new ObjectParameter("IdKsiazka", idKsiazka) :
+                new ObjectParameter("IdKsiazka", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AutorstwoPoIdKsiazki_Result>("AutorstwoPoIdKsiazki", idKsiazkaParameter);
+        }
+    
+        public virtual int DodajAutorstwo(Nullable<int> idKsiazka, Nullable<int> idAutor)
+        {
+            var idKsiazkaParameter = idKsiazka.HasValue ?
+                new ObjectParameter("IdKsiazka", idKsiazka) :
+                new ObjectParameter("IdKsiazka", typeof(int));
+    
+            var idAutorParameter = idAutor.HasValue ?
+                new ObjectParameter("IdAutor", idAutor) :
+                new ObjectParameter("IdAutor", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DodajAutorstwo", idKsiazkaParameter, idAutorParameter);
+        }
+    
+        public virtual int UsunAutorstwo(Nullable<int> idAutor, Nullable<int> idKsiazka)
+        {
+            var idAutorParameter = idAutor.HasValue ?
+                new ObjectParameter("IdAutor", idAutor) :
+                new ObjectParameter("IdAutor", typeof(int));
+    
+            var idKsiazkaParameter = idKsiazka.HasValue ?
+                new ObjectParameter("IdKsiazka", idKsiazka) :
+                new ObjectParameter("IdKsiazka", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UsunAutorstwo", idAutorParameter, idKsiazkaParameter);
+        }
+    
+        public virtual ObjectResult<WszystkieAutorstwa_Result> WszystkieAutorstwa()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<WszystkieAutorstwa_Result>("WszystkieAutorstwa");
+        }
     }
 }

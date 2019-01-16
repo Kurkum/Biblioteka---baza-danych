@@ -159,7 +159,11 @@
     <Compile Include="Autor.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AutorstwoPoIdKsiazki_Result.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AutorsController.cs" />
+    <Compile Include="Controllers\AutorstwoesController.cs" />
     <Compile Include="Controllers\CzytelniksController.cs" />
     <Compile Include="Controllers\EgzemplarzsController.cs" />
     <Compile Include="Controllers\GatuneksController.cs" />
@@ -205,6 +209,8 @@
     <Compile Include="KsiegozbiorProcedure_Result.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Autorstwo.cs" />
+    <Compile Include="Models\AutorstwoWidok.cs" />
     <Compile Include="Models\Dluznik.cs" />
     <Compile Include="Models\NajlepszyCzytelnik.cs" />
     <Compile Include="NajpopularniejszeGatunki_Result.cs">
@@ -218,6 +224,9 @@
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>EntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WszystkieAutorstwa_Result.cs">
       <DependentUpon>EntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Wydawnictwo.cs">
@@ -342,6 +351,8 @@
     <Content Include="Views\Wydawnictwoes\CreateUsingProcedure.cshtml" />
     <Content Include="Views\Czytelniks\CreateUsingProcedure.cshtml" />
     <Content Include="Views\Ksiazkas\CreateUsingProcedure.cshtml" />
+    <Content Include="Views\Autorstwoes\Index.cshtml" />
+    <Content Include="Views\Autorstwoes\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

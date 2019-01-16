@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Biblioteka.Models.AutorstwoWidok>
+
+@{
+    ViewBag.Title = "Autorstwo";
+}
+
+<h2>Autorstwo</h2>
+
+<p>
+    @Html.ActionLink("Dodaj autora", "Create", new { id=ViewBag.IdKsiazki })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Autor
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Imie)
+             
+            @Html.DisplayFor(modelItem => item.Nazwisko)
+        </td>
+        <td>
+            @Html.ActionLink("Usuń", "Delete", new { idKsiazka=item.IdKsiazka, idAutor=item.IdAutor })
+        </td>
+    </tr>
+}
+
+</table>

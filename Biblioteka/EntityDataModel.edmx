@@ -194,10 +194,17 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AutorstwoPoIdKsiazki" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdKsiazka" Type="int" Mode="In" />
+        </Function>
         <Function Name="DodajAutora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdAutor" Type="int" Mode="In" />
           <Parameter Name="Imie" Type="varchar" Mode="In" />
           <Parameter Name="Nazwisko" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="DodajAutorstwo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdKsiazka" Type="int" Mode="In" />
+          <Parameter Name="IdAutor" Type="int" Mode="In" />
         </Function>
         <Function Name="DodajCzytelnika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdCzytelnik" Type="int" Mode="In" />
@@ -272,6 +279,10 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
         <Function Name="UsunAutora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdAutor" Type="int" Mode="In" />
         </Function>
+        <Function Name="UsunAutorstwo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAutor" Type="int" Mode="In" />
+          <Parameter Name="IdKsiazka" Type="int" Mode="In" />
+        </Function>
         <Function Name="UsunCzytelnika" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdCzytelnik" Type="int" Mode="In" />
         </Function>
@@ -290,6 +301,7 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
         <Function Name="WartoscKary2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdCzytelnik" Type="int" Mode="In" />
         </Function>
+        <Function Name="WszystkieAutorstwa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="BibliotekaModelStoreContainer">
           <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Autorstwo" EntityType="Self.Autorstwo" Schema="dbo" store:Type="Tables" />
@@ -615,8 +627,20 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
           </FunctionImport>
           <FunctionImport Name="KsiegozbiorProcedure" ReturnType="Collection(BibliotekaModel.KsiegozbiorProcedure_Result)" />
           <FunctionImport Name="WartoscKary2" ReturnType="Collection(Decimal)">
-            <Parameter Name="IdCzytelnik" Mode="In" Type="Int32" />
+          <Parameter Name="IdCzytelnik" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="AutorstwoPoIdKsiazki" ReturnType="Collection(BibliotekaModel.AutorstwoPoIdKsiazki_Result)">
+            <Parameter Name="IdKsiazka" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DodajAutorstwo">
+            <Parameter Name="IdKsiazka" Mode="In" Type="Int32" />
+            <Parameter Name="IdAutor" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsunAutorstwo">
+            <Parameter Name="IdAutor" Mode="In" Type="Int32" />
+            <Parameter Name="IdKsiazka" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="WszystkieAutorstwa" ReturnType="Collection(BibliotekaModel.WszystkieAutorstwa_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -670,6 +694,14 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
           <Property Type="String" Name="Tytul" Nullable="false" MaxLength="40" />
           <Property Type="Int32" Name="RokWydania" Nullable="false" />
           <Property Type="Int32" Name="LiczbaEgzemplarzy" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="AutorstwoPoIdKsiazki_Result">
+          <Property Type="Int32" Name="IdKsiazka" Nullable="false" />
+          <Property Type="Int32" Name="IdAutor" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="WszystkieAutorstwa_Result">
+          <Property Type="Int32" Name="IdKsiazka" Nullable="false" />
+          <Property Type="Int32" Name="IdAutor" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -836,6 +868,24 @@ warning 6002: The table/view 'Biblioteka.dbo.PrzetrzymaneKsiazki' does not have 
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="WartoscKary2" FunctionName="BibliotekaModel.Store.WartoscKary2" />
+          <FunctionImportMapping FunctionImportName="AutorstwoPoIdKsiazki" FunctionName="BibliotekaModel.Store.AutorstwoPoIdKsiazki">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BibliotekaModel.AutorstwoPoIdKsiazki_Result">
+                <ScalarProperty Name="IdKsiazka" ColumnName="IdKsiazka" />
+                <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DodajAutorstwo" FunctionName="BibliotekaModel.Store.DodajAutorstwo" />
+          <FunctionImportMapping FunctionImportName="UsunAutorstwo" FunctionName="BibliotekaModel.Store.UsunAutorstwo" />
+          <FunctionImportMapping FunctionImportName="WszystkieAutorstwa" FunctionName="BibliotekaModel.Store.WszystkieAutorstwa">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BibliotekaModel.WszystkieAutorstwa_Result">
+                <ScalarProperty Name="IdKsiazka" ColumnName="IdKsiazka" />
+                <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
