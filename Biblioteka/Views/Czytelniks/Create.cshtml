@@ -6,10 +6,15 @@
 
 <h2>Dodaj nowego czytelnika</h2>
 
-@using (Html.BeginForm()) 
+@if (ViewBag.Exception != null)
+{
+    <h4 style="color:red">@ViewBag.Exception</h4>
+}
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Czytelnik</h4>
         <hr />

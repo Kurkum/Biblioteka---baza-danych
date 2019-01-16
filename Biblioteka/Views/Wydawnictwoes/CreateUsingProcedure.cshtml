@@ -6,6 +6,10 @@
 
 <h2>Dodaj nowe wydawnictwo</h2>
 
+@if (ViewBag.Exception != null)
+{
+    <h4 style="color:red">@ViewBag.Exception</h4>
+}
 
 @using (Html.BeginForm())
 {

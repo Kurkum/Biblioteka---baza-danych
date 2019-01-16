@@ -6,11 +6,15 @@
 
 <h2>Dodaj nowe wydawnictwo</h2>
 
+@if (ViewBag.Exception != null)
+{
+    <h4 style="color:red">@ViewBag.Exception</h4>
+}
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Wydawnictwo</h4>
         <hr />
@@ -18,7 +22,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IdWydawnictwo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IdWydawnictwo, new { htmlAttributes = new { @class = "form-control" } })
+                <p style="font-size: 14px; padding-left: 15px; padding-right: 15px; padding-top: 7px;">@ViewBag.IdWydawnictwo</p>
+                @Html.EditorFor(model => model.IdWydawnictwo, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.IdWydawnictwo, @style = "display: none" } })
                 @Html.ValidationMessageFor(model => model.IdWydawnictwo, "", new { @class = "text-danger" })
             </div>
         </div>

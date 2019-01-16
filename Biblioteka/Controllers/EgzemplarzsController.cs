@@ -40,9 +40,9 @@ namespace Biblioteka.Controllers
         // GET: Egzemplarzs/Create
         public ActionResult Create()
         {
-            IEnumerable<int> ids = from egzemplarz in db.Egzemplarzs
-                                   select egzemplarz.IdEgzemplarz;
-            ViewBag.IdEgzemplarz = (ids.Count() == 0) ? 1 : ids.Last() + 1;
+            var ids = from egzemplarz in db.Egzemplarzs
+                                   select egzemplarz;
+            ViewBag.IdEgzemplarz = (ids.Count() == 0) ? 1 : ids.ToArray().OrderBy(element => element.IdEgzemplarz).LastOrDefault().IdEgzemplarz + 1;
             ViewBag.IdKsiazka = new SelectList(db.Ksiazkas, "IdKsiazka", "Tytul");
             return View();
         }
@@ -57,19 +57,37 @@ namespace Biblioteka.Controllers
             if (ModelState.IsValid)
             {
                 db.Egzemplarzs.Add(egzemplarz);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane egzemplarza!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    ViewBag.IdKsiazka = new SelectList(db.Ksiazkas, "IdKsiazka", "Tytul", egzemplarz.IdKsiazka);
+                    return View(egzemplarz);
+                }
                 return RedirectToAction("Index");
             }
-
             ViewBag.IdKsiazka = new SelectList(db.Ksiazkas, "IdKsiazka", "Tytul", egzemplarz.IdKsiazka);
-            return View(egzemplarz);
+            return View(egzemplarz);                                  
         }
 
         // GET: Egzemplarzs/CreateUsingProcedure
         public ActionResult CreateUsingProcedure() {
-            IEnumerable<int> ids = from egzemplarz in db.Egzemplarzs
-                                   select egzemplarz.IdEgzemplarz;
-            ViewBag.IdEgzemplarz = (ids.Count() == 0) ? 1 : ids.Last() + 1;
+            var ids = from egzemplarz in db.Egzemplarzs
+                      select egzemplarz;
+            ViewBag.IdEgzemplarz = (ids.Count() == 0) ? 1 : ids.ToArray().OrderBy(element => element.IdEgzemplarz).LastOrDefault().IdEgzemplarz + 1;
             ViewBag.IdKsiazka = new SelectList(db.Ksiazkas, "IdKsiazka", "Tytul");
             return View();
         }
@@ -80,12 +98,32 @@ namespace Biblioteka.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateUsingProcedure([Bind(Include = "IdEgzemplarz,IdKsiazka")] Egzemplarz egzemplarz) {
-            if (ModelState.IsValid) {
-                db.DodajEgzemplarz(egzemplarz.IdEgzemplarz, egzemplarz.IdKsiazka);
-                db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                db.Egzemplarzs.Add(egzemplarz);
+                try
+                {
+                    db.DodajEgzemplarz(egzemplarz.IdEgzemplarz, egzemplarz.IdKsiazka);
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane egzemplarza!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    ViewBag.IdKsiazka = new SelectList(db.Ksiazkas, "IdKsiazka", "Tytul", egzemplarz.IdKsiazka);
+                    return View(egzemplarz);
+                }
                 return RedirectToAction("Index");
             }
-
             ViewBag.IdKsiazka = new SelectList(db.Ksiazkas, "IdKsiazka", "Tytul", egzemplarz.IdKsiazka);
             return View(egzemplarz);
         }
@@ -112,11 +150,30 @@ namespace Biblioteka.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdEgzemplarz,IdKsiazka")] Egzemplarz egzemplarz)
-        {
+        {            
             if (ModelState.IsValid)
             {
                 db.Entry(egzemplarz).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane egzemplarza!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    ViewBag.IdKsiazka = new SelectList(db.Ksiazkas, "IdKsiazka", "Tytul", egzemplarz.IdKsiazka);
+                    return View(egzemplarz);
+                }
                 return RedirectToAction("Index");
             }
             ViewBag.IdKsiazka = new SelectList(db.Ksiazkas, "IdKsiazka", "Tytul", egzemplarz.IdKsiazka);

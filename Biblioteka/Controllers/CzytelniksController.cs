@@ -97,9 +97,9 @@ namespace Biblioteka.Controllers
         // GET: Czytelniks/Create
         public ActionResult Create()
         {
-            IEnumerable<int> ids = from czytelnik in db.Czytelniks
-                                   select czytelnik.IdCzytelnik;
-            ViewBag.IdCzytelnik = (ids.Count() == 0) ? 1 : ids.Last() + 1;
+            var ids = from czytelnik in db.Czytelniks
+                      select czytelnik;
+            ViewBag.IdCzytelnik = (ids.Count() == 0) ? 1 : ids.ToArray().OrderBy(element => element.IdCzytelnik).LastOrDefault().IdCzytelnik + 1;
             return View();
         }
 
@@ -113,10 +113,27 @@ namespace Biblioteka.Controllers
             if (ModelState.IsValid)
             {
                 db.Czytelniks.Add(czytelnik);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane czytelnika!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    return View(czytelnik);
+                }
                 return RedirectToAction("Index");
             }
-
             return View(czytelnik);
         }
 
@@ -134,11 +151,29 @@ namespace Biblioteka.Controllers
         public ActionResult CreateUsingProcedure([Bind(Include = "IdCzytelnik,Imie,Nazwisko,Telefon,Adres,Wersja")] Czytelnik czytelnik)
         {
             if (ModelState.IsValid)
-            {
-                db.DodajCzytelnika(czytelnik.IdCzytelnik, czytelnik.Imie, czytelnik.Nazwisko, czytelnik.Telefon, czytelnik.Adres, czytelnik.Wersja);
-                db.SaveChanges();
+            {                
+                try
+                {
+                    db.DodajCzytelnika(czytelnik.IdCzytelnik, czytelnik.Imie, czytelnik.Nazwisko, czytelnik.Telefon, czytelnik.Adres, czytelnik.Wersja);
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane czytelnika!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    return View(czytelnik);
+                }
                 return RedirectToAction("Index");
-            }
+            }            
             return View(czytelnik);
         }
 

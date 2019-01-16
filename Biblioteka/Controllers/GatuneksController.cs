@@ -43,6 +43,9 @@ namespace Biblioteka.Controllers
         // GET: Gatuneks/Create
         public ActionResult Create()
         {
+            var ids = from gatunek in db.Gatuneks
+                      select gatunek;
+            ViewBag.IdGatunek = (ids.Count() == 0) ? 1 : ids.ToArray().OrderBy(element => element.IdGatunek).LastOrDefault().IdGatunek + 1;
             return View();
         }
 
@@ -64,10 +67,27 @@ namespace Biblioteka.Controllers
             if (ModelState.IsValid)
             {
                 db.Gatuneks.Add(gatunek);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane gatunku!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    return View(gatunek);
+                }
                 return RedirectToAction("Index");
             }
-
             return View(gatunek);
         }
 
@@ -77,8 +97,26 @@ namespace Biblioteka.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.DodajGatunek(gatunek.IdGatunek, gatunek.Nazwa);
-                db.SaveChanges();
+                try
+                {
+                    db.DodajGatunek(gatunek.IdGatunek, gatunek.Nazwa);
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane gatunku!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    return View(gatunek);
+                }
                 return RedirectToAction("Index");
             }
             return View(gatunek);
@@ -105,11 +143,29 @@ namespace Biblioteka.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdGatunek,Nazwa")] Gatunek gatunek)
-        {
+        {            
             if (ModelState.IsValid)
             {
                 db.Entry(gatunek).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane gatunku!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    return View(gatunek);
+                }
                 return RedirectToAction("Index");
             }
             return View(gatunek);

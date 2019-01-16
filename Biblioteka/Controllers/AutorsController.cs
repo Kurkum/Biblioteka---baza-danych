@@ -142,13 +142,32 @@ namespace Biblioteka.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdAutor,Imie,Nazwisko")] Autor autor)
-        {
+        {            
             if (ModelState.IsValid)
             {
                 db.Entry(autor).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane autora!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    return View(autor);
+                }
                 return RedirectToAction("Index");
             }
+
             return View(autor);
         }
 

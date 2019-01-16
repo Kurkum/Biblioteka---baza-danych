@@ -6,11 +6,18 @@
 
 <h2>Edytuj dane czytelnika</h2>
 
-@if (TempData["Exception"] != null) {
+@if (ViewBag.Exception != null)
+{
+    <h4 style="color:red">@ViewBag.Exception</h4>
+}
+
+@if (TempData["Exception"] != null)
+{
     <h4 style="color:red">@TempData["Exception"]</h4>
 }
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">

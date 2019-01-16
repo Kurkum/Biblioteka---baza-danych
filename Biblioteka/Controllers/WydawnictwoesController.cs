@@ -38,6 +38,9 @@ namespace Biblioteka.Controllers
         // GET: Wydawnictwoes/Create
         public ActionResult Create()
         {
+            var ids = from wydawnictwo in db.Wydawnictwoes
+                      select wydawnictwo;
+            ViewBag.IdWydawnictwo = (ids.Count() == 0) ? 1 : ids.ToArray().OrderBy(element => element.IdWydawnictwo).LastOrDefault().IdWydawnictwo + 1;
             return View();
         }
 
@@ -51,10 +54,27 @@ namespace Biblioteka.Controllers
             if (ModelState.IsValid)
             {
                 db.Wydawnictwoes.Add(wydawnictwo);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane wydawnictwa!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    return View(wydawnictwo);
+                }
                 return RedirectToAction("Index");
             }
-
             return View(wydawnictwo);
         }
 
@@ -73,8 +93,27 @@ namespace Biblioteka.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.DodajWydawnictwo(wydawnictwo.IdWydawnictwo, wydawnictwo.Nazwa);
-                db.SaveChanges();
+                db.Wydawnictwoes.Add(wydawnictwo);
+                try
+                {
+                    db.DodajWydawnictwo(wydawnictwo.IdWydawnictwo, wydawnictwo.Nazwa);
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane wydawnictwa!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    return View(wydawnictwo);
+                }
                 return RedirectToAction("Index");
             }
             return View(wydawnictwo);
@@ -101,11 +140,29 @@ namespace Biblioteka.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdWydawnictwo,Nazwa")] Wydawnictwo wydawnictwo)
-        {
+        {            
             if (ModelState.IsValid)
             {
                 db.Entry(wydawnictwo).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane wydawnictwa!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    return View(wydawnictwo);
+                }
                 return RedirectToAction("Index");
             }
             return View(wydawnictwo);
