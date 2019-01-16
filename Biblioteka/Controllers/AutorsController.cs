@@ -60,8 +60,27 @@ namespace Biblioteka.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.DodajAutora(autor.IdAutor, autor.Imie, autor.Nazwisko);
-                db.SaveChanges();
+                
+                try
+                {
+                    db.DodajAutora(autor.IdAutor, autor.Imie, autor.Nazwisko);
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane autora!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    return View(autor);
+                }
                 return RedirectToAction("Index");
             }
             return View(autor);
@@ -77,8 +96,26 @@ namespace Biblioteka.Controllers
             if (ModelState.IsValid)
             {
                 db.Autors.Add(autor);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    string message = "";
+
+                    if (e.InnerException == null)
+                    {
+                        message = "Podano nieprawidłowe dane autora!";
+                    }
+                    else
+                    {
+                        message = e.InnerException.InnerException.Message;
+                    }
+                    ViewBag.Exception = message;
+                    return View(autor);
+                }
+                    return RedirectToAction("Index");
             }
 
             return View(autor);
