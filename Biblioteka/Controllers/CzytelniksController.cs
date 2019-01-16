@@ -326,11 +326,31 @@ namespace Biblioteka.Controllers
         public ActionResult Przedluz(int id) {
             ViewBag.IdCzytelnikaDlaWypozyczenia = id;
             db.Database.ExecuteSqlCommand("set transaction isolation level repeatable read");
-            db.PrzedluzenieTerminuOddania(id);
-
             var czytelnikId = (from wypozyczenie in db.Wypozyczenies
                                where wypozyczenie.IdWypozyczenie == id
                                select wypozyczenie.IdCzytelnik).ToArray();
+            try
+            {
+                db.PrzedluzenieTerminuOddania(id);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                string message = "";
+
+                if (e.InnerException == null)
+                {
+                    message = "Podano nieprawidłowe dane wypozyczenia!";
+                }
+                else
+                {
+                    message = e.InnerException.Message;
+                }
+
+                TempData["message2"] = message;
+                return RedirectToAction("Wypozyczenies/" + czytelnikId.FirstOrDefault());
+            }
+
 
             return RedirectToAction("Wypozyczenies/" + czytelnikId.FirstOrDefault());
         }

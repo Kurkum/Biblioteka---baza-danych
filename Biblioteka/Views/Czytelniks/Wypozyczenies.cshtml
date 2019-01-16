@@ -6,7 +6,10 @@
 
 <h2>Wypożyczenia czytelnika @ViewBag.Imie @ViewBag.Nazwisko</h2>
 
-
+@if (TempData["message2"] != null)
+{
+    <h5 style="color:red">@TempData["message2"]</h5>
+}
 
 <table class="table">
     <tr>
@@ -22,24 +25,26 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    if (item.CzyOddane == false) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TerminWypozyczenia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TerminOddania)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Egzemplarz.Ksiazka.Tytul)
-        </td>
-        <td>
-            @Html.ActionLink("Edytuj", "../Wypozyczenies/Edit", new { id = item.IdWypozyczenie }) |
-            @Html.ActionLink("Przedłuż wypożyczenie", "Przedluz", new { id = item.IdWypozyczenie }) |
-            @Html.ActionLink("Oddaj książkę", "Oddaj", new { id = item.IdWypozyczenie })
-        </td>
-    </tr>
+    @foreach (var item in Model)
+    {
+        if (item.CzyOddane == false)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TerminWypozyczenia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TerminOddania)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Egzemplarz.Ksiazka.Tytul)
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "../Wypozyczenies/Edit", new { id = item.IdWypozyczenie }) |
+                    @Html.ActionLink("Przedłuż wypożyczenie", "Przedluz", new { id = item.IdWypozyczenie }) |
+                    @Html.ActionLink("Oddaj książkę", "Oddaj", new { id = item.IdWypozyczenie })
+                </td>
+            </tr>
         }
     }
 
