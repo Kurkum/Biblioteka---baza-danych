@@ -167,7 +167,7 @@ namespace Biblioteka.Controllers
                     }
                     else
                     {
-                        message = e.InnerException.InnerException.Message;
+                        message = e.InnerException.Message;
                     }
                     ViewBag.Exception = message;
                     return View(czytelnik);

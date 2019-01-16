@@ -102,10 +102,10 @@ namespace Biblioteka.Controllers
         {
 
             if (ModelState.IsValid)
-            {
-                db.DodajKsiazka(ksiazka.IdKsiazka, ksiazka.IdWydawnictwo, ksiazka.IdGatunek, ksiazka.Tytul, ksiazka.RokWydania);
+            {                
                 try
                 {
+                    db.DodajKsiazka(ksiazka.IdKsiazka, ksiazka.IdWydawnictwo, ksiazka.IdGatunek, ksiazka.Tytul, ksiazka.RokWydania);
                     db.SaveChanges();
                 }
                 catch (Exception e)
@@ -118,7 +118,7 @@ namespace Biblioteka.Controllers
                     }
                     else
                     {
-                        message = e.InnerException.InnerException.Message;
+                        message = e.InnerException.Message;
                     }
 
                     ViewBag.Exception = message;

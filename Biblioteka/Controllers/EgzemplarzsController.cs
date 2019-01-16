@@ -116,7 +116,7 @@ namespace Biblioteka.Controllers
                     }
                     else
                     {
-                        message = e.InnerException.InnerException.Message;
+                        message = e.InnerException.Message;
                     }
                     ViewBag.Exception = message;
                     ViewBag.IdKsiazka = new SelectList(db.Ksiazkas, "IdKsiazka", "Tytul", egzemplarz.IdKsiazka);
