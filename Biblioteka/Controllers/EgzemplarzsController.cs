@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Biblioteka;
+using Biblioteka.Models;
+using Newtonsoft.Json;
 
 namespace Biblioteka.Controllers
 {
@@ -208,7 +210,49 @@ namespace Biblioteka.Controllers
 
         public ActionResult PrzetrzymaneKsiazkis()
         {
+            var czytelnicy = (from czytelnik in db.Czytelniks
+                              select czytelnik);
+            List<Dluznik> dluznicy = new List<Dluznik>();
+
+            //TODO: dodać funkcję obliczającą wartość kary
+            foreach (var czytelnik in czytelnicy) {
+                var przetrzymaneWypozyczenia = (from wypozyczenie in db.Wypozyczenies
+                                                where wypozyczenie.IdCzytelnik == czytelnik.IdCzytelnik && wypozyczenie.CzyOddane == false && wypozyczenie.TerminOddania < DateTime.Now
+                                                select wypozyczenie).ToArray();
+                if (przetrzymaneWypozyczenia.Count() != 0) {
+                    decimal kara = 0.0m;
+
+                    foreach (var wypozyczenie in przetrzymaneWypozyczenia) {
+                        kara += (DateTime.Now - wypozyczenie.TerminOddania).Days * 0.2m;
+                    }
+
+                    dluznicy.Add(new Dluznik(czytelnik.IdCzytelnik, kara));
+                }
+            }
+
+            string json = JsonConvert.SerializeObject(dluznicy);
+
+            /*FileStream fileStream = new FileStream("C://Users//Bartosz", FileMode.Create, FileAccess.ReadWrite);
+            StreamWriter streamWriter = new StreamWriter(fileStream);
+
+            streamWriter.Write(json);
+
+            streamWriter.Close();
+            fileStream.Close();*/
+
             return View(db.PrzetrzymaneKsiazkis.ToList());
+        }
+
+        public ActionResult Oddaj(int idCzytelnik, int idEgzemplarz) {
+            var przetrzymaneWypozyczenie = (from wypozyczenie in db.Wypozyczenies
+                                            where wypozyczenie.IdCzytelnik == idCzytelnik && wypozyczenie.IdEgzemplarz == idEgzemplarz && wypozyczenie.CzyOddane == false && wypozyczenie.TerminOddania < DateTime.Now
+                                            select wypozyczenie).ToArray().FirstOrDefault();
+
+            przetrzymaneWypozyczenie.CzyOddane = true;
+
+            db.SaveChanges();
+
+            return RedirectToAction("PrzetrzymaneKsiazkis");
         }
 
         protected override void Dispose(bool disposing)

@@ -59,7 +59,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.WartoscKary)
             </td>
-            <td></td>
+            <td>
+                @Html.ActionLink("Oddaj zaległą książkę", "Oddaj", new { idCzytelnik = item.IdCzytelnik, idEgzemplarz = item.IdEgzemplarz })
+            </td>
         </tr>
     }
 

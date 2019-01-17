@@ -23,29 +23,6 @@ namespace Biblioteka.Controllers
         // GET: Czytelniks
         public ActionResult Index()
         {
-            /*var czytelnicy = (from czytelnik in db.Czytelniks
-                            select czytelnik);
-            List<Dluznik> dluznicy = new List<Dluznik>();
-
-            //TODO: dodać funkcję obliczającą wartość kary
-            foreach (var czytelnik in czytelnicy) {
-                //decimal wartoscKary = db.WartoscKary(czytelnik.IdCzytelnik);
-                //if (wartoscKary) != 0.0m)
-                {
-                    dluznicy.Add(new Dluznik(czytelnik.IdCzytelnik, 1.2m));
-                }
-            }
-
-            string json = JsonConvert.SerializeObject(dluznicy);
-
-            FileStream fileStream = new FileStream(@"dluznicy.json", FileMode.Create, FileAccess.ReadWrite);
-            StreamWriter streamWriter = new StreamWriter(fileStream);
-
-            streamWriter.Write(json);
-
-            streamWriter.Close();
-            fileStream.Close();*/
-
             return View(db.Czytelniks.ToList());
         }
 
